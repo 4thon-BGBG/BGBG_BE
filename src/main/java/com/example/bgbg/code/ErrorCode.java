@@ -12,11 +12,12 @@ public enum ErrorCode {
      * 400 BAD_REQUEST - 잘못된 요청
      */
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
+    PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다. 다시 확인해 주세요."),
 
     /**
      * 401 UNAUTHORIZED - 인증 실패
      */
-
+    PASSWORD_NOT_CORRECT(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다."),
 
     /**
      * 403 FORBIDDEN - 권한 없음
@@ -26,8 +27,7 @@ public enum ErrorCode {
     /**
      * 404 NOT_FOUND - 요청한 리소스를 찾을 수 없음
      */
-
-
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 아이디를 가진 사용자가 존재하지 않습니다."),
     /**
      * 406 NOT_ACCEPTABLE - 허용되지 않는 요청 형식
      */
@@ -36,7 +36,7 @@ public enum ErrorCode {
     /**
      * 409 CONFLICT - 요청 충돌
      */
-
+    DUPLICATE_EMAIL(HttpStatus.CONFLICT, "이미 사용 중인 아이디입니다."),
 
     /**
      * 502 BAD_GATEWAY - 이트웨이 또는 프록시 서버 오류
