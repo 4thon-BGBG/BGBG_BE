@@ -5,6 +5,7 @@ import com.example.bgbg.code.ResponseCode;
 import com.example.bgbg.dto.response.ErrorResponseDTO;
 import com.example.bgbg.dto.response.ResponseDTO;
 import com.example.bgbg.dto.user.LoginRequestDTO;
+import com.example.bgbg.dto.user.MyPageDTO;
 import com.example.bgbg.dto.user.RegisterDTO;
 import com.example.bgbg.dto.user.UserResponseDTO;
 import com.example.bgbg.entity.User;
@@ -88,5 +89,20 @@ public class UserServiceImpl implements UserService {
                 .status(ResponseCode.SUCCESS_LOGIN.getStatus().value())
                 .body(new ResponseDTO<>(ResponseCode.SUCCESS_LOGIN, resp));
     }
+
+    // mypage
+    @Override
+    public ResponseEntity<?> mypage(User user) {
+
+        MyPageDTO dto = MyPageDTO.builder()
+                .id(user.getId())
+                .nickname(user.getNickname())
+                .build();
+
+        return ResponseEntity
+                .status(ResponseCode.SUCCESS_GET_MYPAGE.getStatus().value())
+                .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_MYPAGE, dto));
+    }
+
 
 }
