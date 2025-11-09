@@ -4,6 +4,7 @@ import com.example.bgbg.code.ErrorCode;
 import com.example.bgbg.dto.response.ErrorResponseDTO;
 import com.example.bgbg.dto.user.LoginRequestDTO;
 import com.example.bgbg.dto.user.RegisterDTO;
+import com.example.bgbg.dto.user.UserUpdateDTO;
 import com.example.bgbg.entity.User;
 import com.example.bgbg.repository.user.UserRepository;
 import com.example.bgbg.service.user.UserService;
@@ -15,9 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -51,7 +50,7 @@ public class UserController {
 
     @Operation(
             summary = "마이페이지",
-            description = "내 정보, 내가 등록한 집, 스크랩한 집을 볼 수 있습니다."
+            description = "내 정보, 장보기 내역, 나의 장보기 분석 리포트를 볼 수 있습니다."
     )
     @GetMapping("/mypage")
     public ResponseEntity<?> mypage(@AuthenticationPrincipal User loginUser) {
@@ -60,5 +59,15 @@ public class UserController {
                     .body(new ErrorResponseDTO(ErrorCode.UNAUTHORIZED_UESR, null));
         }
         return userService.mypage(loginUser);
+    }
+
+    @Operation(
+            summary = "유저 정보 수정",
+            description = "유저 닉네임 수정"
+    )
+    @PatchMapping("/mypage")
+    public ResponseEntity<?> updateUser(@RequestBody @Valid UserUpdateDTO dto,
+                                        @AuthenticationPrincipal User loginUser) {
+        return userService.updateUser(loginUser.getId(), dto);
     }
 }
