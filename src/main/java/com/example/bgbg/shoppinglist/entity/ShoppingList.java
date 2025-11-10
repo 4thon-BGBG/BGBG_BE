@@ -39,4 +39,8 @@ public class ShoppingList extends BaseTimeEntity {
     this.listName = listName;
   }
 
+  public void setUser(User user) {
+    this.user = user;
+  }
+
 }

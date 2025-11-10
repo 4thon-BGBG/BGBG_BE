@@ -1,6 +1,7 @@
 package com.example.bgbg.shoppinglist.service;
 
 import com.example.bgbg.code.ErrorCode;
+import com.example.bgbg.entity.User;
 import com.example.bgbg.exception.GlobalException;
 import com.example.bgbg.shoppinglist.dto.request.CreateListRequest;
 import com.example.bgbg.shoppinglist.dto.response.ListResponse;
@@ -23,12 +24,13 @@ public class ShoppingListService {
   private final ShoppingListMapper shoppingListMapper;
 
   @Transactional
-  public ListResponse createShoppingList(CreateListRequest request) {
+  public ListResponse createShoppingList(CreateListRequest request, User user) {
 
     try {
       ShoppingList shoppingList = ShoppingList.builder()
           .listName(request.getListName())
           .build();
+      shoppingList.setUser(user);
       log.info("새로운 리스트 생성 완료");
 
       ShoppingList savedShoppingList = shoppingListRepository.save(shoppingList);
