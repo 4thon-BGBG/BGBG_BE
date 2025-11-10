@@ -29,6 +29,10 @@ public class Item {
 
     private String itemCategory;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category")
+    private Category category;
+
     private String memo;
 
     @ManyToOne(fetch = FetchType.LAZY)

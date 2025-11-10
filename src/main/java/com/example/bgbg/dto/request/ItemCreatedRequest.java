@@ -4,7 +4,8 @@ public record ItemCreatedRequest(
     String itemName,
     int itemCount,
     String itemCategory,
-    String memo
+    String memo,
+    Long shoppingListId
 ) {
 
 }

@@ -1,26 +1,42 @@
 package com.example.bgbg.service;
 
+import com.example.bgbg.code.ErrorCode;
 import com.example.bgbg.dto.request.ItemCreatedRequest;
 import com.example.bgbg.dto.response.ItemCreatedResponse;
 import com.example.bgbg.entity.Item;
+import com.example.bgbg.exception.GlobalException;
 import com.example.bgbg.mapper.ItemMapper;
 import com.example.bgbg.repository.ItemRepository;
+import com.example.bgbg.shoppinglist.entity.ShoppingList;
+import com.example.bgbg.shoppinglist.repository.ShoppingListRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ItemServiceImpl implements ItemService{
     private final ItemRepository itemRepository;
+    private final ShoppingListRepository shoppingListRepository;
 
     @Override
     @Transactional
     public ItemCreatedResponse saveItem(ItemCreatedRequest request) {
-        Item item = ItemMapper.toEntity(request);
+
+      ShoppingList shoppingList = shoppingListRepository.findById(request.shoppingListId())
+          .orElseThrow(() -> {
+            log.warn("리스트가 존재하지 않음");
+            throw new GlobalException(ErrorCode.LIST_NOT_FOUND);
+          });
+
+        Item item = ItemMapper.toEntity(request, shoppingList);
 
         Item savedItem = itemRepository.save(item);
 
         return new ItemCreatedResponse(savedItem.getId(), "item 등록 완료");
     }
+
+
 }
