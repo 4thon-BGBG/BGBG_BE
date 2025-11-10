@@ -58,4 +58,10 @@ public class Item {
         this.shoppingList = shoppingList;
         this.user = user;
     }
+
+    public void updateItemInfo(String itemName, int itemCount, Category itemCategory) {
+        this.itemName = itemName;
+        this.itemCount = itemCount;
+        this.itemCategory = itemCategory;
+    }
 }

@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-@Schema(title = "ListResponse DTO", description = "새로운 리스트 생성 응답 반환")
+@Schema(title = "ItemGetResponse DTO", description = "특정 리스트 별 품목 조회 응답 반환")
 public class ItemGetResponse {
 
   @Schema(description = "리스트 이름")
