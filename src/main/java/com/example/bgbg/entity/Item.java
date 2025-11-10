@@ -39,6 +39,10 @@ public class Item {
     @JoinColumn(name = "shopping_list_id")
     private ShoppingList shoppingList;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @CreatedDate
     private LocalDateTime createdAt;
 
@@ -46,11 +50,12 @@ public class Item {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Item(String itemName, int itemCount, Category itemCategory, String memo, ShoppingList shoppingList) {
+    public Item(String itemName, int itemCount, Category itemCategory, String memo, ShoppingList shoppingList, User user) {
         this.itemName = itemName;
         this.itemCategory = itemCategory;
         this.itemCount = itemCount;
         this.memo = memo;
         this.shoppingList = shoppingList;
+        this.user = user;
     }
 }
