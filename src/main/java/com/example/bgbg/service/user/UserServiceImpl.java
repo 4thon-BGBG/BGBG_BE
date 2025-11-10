@@ -4,9 +4,7 @@ import com.example.bgbg.code.ErrorCode;
 import com.example.bgbg.code.ResponseCode;
 import com.example.bgbg.dto.response.ErrorResponseDTO;
 import com.example.bgbg.dto.response.ResponseDTO;
-import com.example.bgbg.dto.user.LoginRequestDTO;
-import com.example.bgbg.dto.user.RegisterDTO;
-import com.example.bgbg.dto.user.UserResponseDTO;
+import com.example.bgbg.dto.user.*;
 import com.example.bgbg.entity.User;
 import com.example.bgbg.exception.GlobalException;
 import com.example.bgbg.jwt.JWTUtil;
@@ -89,4 +87,41 @@ public class UserServiceImpl implements UserService {
                 .body(new ResponseDTO<>(ResponseCode.SUCCESS_LOGIN, resp));
     }
 
+    // mypage
+    @Override
+    public ResponseEntity<?> mypage(User user) {
+
+        MyPageDTO dto = MyPageDTO.builder()
+                .id(user.getId())
+                .nickname(user.getNickname())
+                .build();
+
+        return ResponseEntity
+                .status(ResponseCode.SUCCESS_GET_MYPAGE.getStatus().value())
+                .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_MYPAGE, dto));
+    }
+
+    // 유저 수정 (닉네임)
+    @Transactional
+    @Override
+    public ResponseEntity<?> updateUser(Long loginUserId,UserUpdateDTO dto) {
+        User user = userRepository.findById(loginUserId)
+                .orElseThrow(() -> new GlobalException(ErrorCode.USER_NOT_FOUND));
+
+        if (dto.getNickname() != null) {
+            user.setNickname(dto.getNickname());
+        }
+
+        User saved =  userRepository.save(user);
+
+        UserResponseDTO res = UserResponseDTO.builder()
+                .id(user.getId())
+                .username((user.getUsername()))
+                .nickname(user.getNickname())
+                .build();
+
+        return ResponseEntity
+                .status(ResponseCode.SUCCESS_UPDATE_USER.getStatus().value())
+                .body(new ResponseDTO<>(ResponseCode.SUCCESS_UPDATE_USER, res));
+    }
 }
