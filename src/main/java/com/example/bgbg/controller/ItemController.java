@@ -6,12 +6,15 @@ import com.example.bgbg.dto.response.ItemCreatedResponse;
 import com.example.bgbg.dto.response.ItemGetResponse;
 import com.example.bgbg.dto.response.ResponseDTO;
 import com.example.bgbg.entity.Category;
+import com.example.bgbg.entity.User;
 import com.example.bgbg.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,10 +26,16 @@ import java.util.List;
 public class ItemController {
     private final ItemService itemService;
 
+    private User getLoggedInUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return (User) auth.getPrincipal();
+    }
+
     @Operation(summary = "새로운 품목 추가", description = "장보기 리스트에 새로운 품목 추가")
     @PostMapping("/item")
     public ResponseEntity<?> createItem(@RequestBody ItemCreatedRequest request) {
-        ItemCreatedResponse item = itemService.saveItem(request);
+        User user = getLoggedInUser();
+        ItemCreatedResponse item = itemService.saveItem(request, user);
         return ResponseEntity
             .status(ResponseCode.SUCCESS_CREATE_ITEM.getStatus().value())
             .body(new ResponseDTO<>(ResponseCode.SUCCESS_CREATE_ITEM, item));

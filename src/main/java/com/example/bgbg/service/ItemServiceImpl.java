@@ -5,6 +5,7 @@ import com.example.bgbg.dto.request.ItemCreatedRequest;
 import com.example.bgbg.dto.response.ItemCreatedResponse;
 import com.example.bgbg.dto.response.ItemGetResponse;
 import com.example.bgbg.entity.Item;
+import com.example.bgbg.entity.User;
 import com.example.bgbg.exception.GlobalException;
 import com.example.bgbg.mapper.ItemMapper;
 import com.example.bgbg.repository.ItemRepository;
@@ -26,13 +27,14 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     @Transactional
-    public ItemCreatedResponse saveItem(ItemCreatedRequest request) {
+    public ItemCreatedResponse saveItem(ItemCreatedRequest request, User user) {
 
       ShoppingList shoppingList = shoppingListRepository.findById(request.shoppingListId())
           .orElseThrow(() -> {
             log.warn("리스트가 존재하지 않음");
             throw new GlobalException(ErrorCode.LIST_NOT_FOUND);
           });
+        shoppingList.setUser(user);
 
         Item item = ItemMapper.toEntity(request, shoppingList);
 
