@@ -1,5 +1,6 @@
 package com.example.bgbg.entity;
 
+import com.example.bgbg.shoppinglist.entity.ShoppingList;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -30,6 +31,10 @@ public class Item {
 
     private String memo;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shopping_list_id")
+    private ShoppingList shoppingList;
+
     @CreatedDate
     private LocalDateTime createdAt;
 
@@ -37,10 +42,11 @@ public class Item {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Item(String itemName, int itemCount, String itemCategory, String memo) {
+    public Item(String itemName, int itemCount, String itemCategory, String memo, ShoppingList shoppingList) {
         this.itemName = itemName;
         this.itemCategory = itemCategory;
         this.itemCount = itemCount;
         this.memo = memo;
+        this.shoppingList = shoppingList;
     }
 }

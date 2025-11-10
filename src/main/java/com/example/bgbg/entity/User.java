@@ -1,7 +1,11 @@
 package com.example.bgbg.entity;
 
+import com.example.bgbg.shoppinglist.entity.ShoppingList;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,4 +28,8 @@ public class User {
 
     @Column(nullable = false)
     private String nickname;  // 닉네임
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<ShoppingList> shoppingLists = new ArrayList<>();
 }
