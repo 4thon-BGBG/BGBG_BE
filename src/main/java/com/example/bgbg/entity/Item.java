@@ -64,4 +64,8 @@ public class Item {
         this.itemCount = itemCount;
         this.itemCategory = itemCategory;
     }
+
+    public void  updateItemMemo(String memo) {
+        this.memo = memo;
+    }
 }

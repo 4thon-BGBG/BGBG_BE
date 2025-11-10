@@ -2,6 +2,7 @@ package com.example.bgbg.service;
 
 import com.example.bgbg.code.ErrorCode;
 import com.example.bgbg.dto.request.ItemCreatedRequest;
+import com.example.bgbg.dto.request.ItemMemoRequest;
 import com.example.bgbg.dto.request.ItemSetRequest;
 import com.example.bgbg.dto.response.ItemCreatedResponse;
 import com.example.bgbg.dto.response.ItemGetResponse;
@@ -53,7 +54,7 @@ public class ItemServiceImpl implements ItemService{
                 .map(item -> ItemGetResponse.builder()
                     .listName(item.getShoppingList().getListName())
                     .itemName(item.getItemName())
-                    .itemCount(String.valueOf(item.getItemCount()))
+                    .itemCount(item.getItemCount())
                     .category(item.getItemCategory())
                     .memo(item.getMemo())
                     .build())
@@ -98,7 +99,41 @@ public class ItemServiceImpl implements ItemService{
         return ItemGetResponse.builder()
             .listName(shoppingList.getListName())
             .itemName(updatedItem.getItemName())
-            .itemCount(String.valueOf(updatedItem.getItemCount()))
+            .itemCount(updatedItem.getItemCount())
+            .category(updatedItem.getItemCategory())
+            .memo(updatedItem.getMemo())
+            .build();
+    }
+
+    @Override
+    @Transactional
+    public ItemGetResponse updateItemMemo(ItemMemoRequest request, User user) {
+        ShoppingList shoppingList = shoppingListRepository.findById(request.getShoppingListId())
+            .orElseThrow(() -> {
+                log.warn("리스트가 존재하지 않음");
+                throw new GlobalException(ErrorCode.LIST_NOT_FOUND);
+            });
+
+        Item item = itemRepository.findById(request.getItemId())
+            .orElseThrow(() -> {
+                log.warn("품목이 존재하지 않음");
+                throw new GlobalException(ErrorCode.ITEM_NOT_FOUND);
+            });
+
+        // 해당 품목이 해당 리스트에 속하는지 검증
+        if (!item.getShoppingList().getId().equals(shoppingList.getId())) {
+            log.warn("해당 리스트에 속한 품목이 아님");
+            throw new GlobalException(ErrorCode.ITEM_NOT_FOUND);
+        }
+
+        item.updateItemMemo(request.getMemo());
+
+        Item updatedItem = itemRepository.save(item);
+
+        return ItemGetResponse.builder()
+            .listName(shoppingList.getListName())
+            .itemName(updatedItem.getItemName())
+            .itemCount(updatedItem.getItemCount())
             .category(updatedItem.getItemCategory())
             .memo(updatedItem.getMemo())
             .build();

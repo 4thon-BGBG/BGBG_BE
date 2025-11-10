@@ -17,7 +17,7 @@ public class ItemGetResponse {
   private String itemName;
 
   @Schema(description = "품목 개수")
-  private String itemCount;
+  private int itemCount;
 
   @Schema(description = "품목 카테고리")
   private Category category;

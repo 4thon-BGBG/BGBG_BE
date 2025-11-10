@@ -2,6 +2,7 @@ package com.example.bgbg.controller;
 
 import com.example.bgbg.code.ResponseCode;
 import com.example.bgbg.dto.request.ItemCreatedRequest;
+import com.example.bgbg.dto.request.ItemMemoRequest;
 import com.example.bgbg.dto.request.ItemSetRequest;
 import com.example.bgbg.dto.response.ItemCreatedResponse;
 import com.example.bgbg.dto.response.ItemGetResponse;
@@ -60,6 +61,16 @@ public class ItemController {
         return ResponseEntity
             .status(ResponseCode.SUCCESS_UPDATE_ITEM.getStatus().value())
             .body(new ResponseDTO<>(ResponseCode.SUCCESS_UPDATE_ITEM, updatedItem));
+    }
+
+    @Operation(summary = "품목 메모 작성", description = "리스트 ID와 품목 ID로 특정 품목의 메모 작성")
+    @PatchMapping("/item/memo")
+    public ResponseEntity<?> updateItemInfo(@RequestBody ItemMemoRequest request) {
+        User user = getLoggedInUser();
+        ItemGetResponse updatedItem = itemService.updateItemMemo(request, user);
+        return ResponseEntity
+            .status(ResponseCode.SUCCESS_UPDATE_ITEM_MEMO.getStatus().value())
+            .body(new ResponseDTO<>(ResponseCode.SUCCESS_UPDATE_ITEM_MEMO, updatedItem));
     }
 
     @Operation(summary = "품목 삭제", description = "품목 id로 품목 조회 후 품목 삭제")
