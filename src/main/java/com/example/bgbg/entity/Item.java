@@ -27,11 +27,11 @@ public class Item {
 
     private int itemCount;
 
-    private String itemCategory;
+    // private String itemCategory;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
-    private Category category;
+    private Category itemCategory;
 
     private String memo;
 
@@ -46,7 +46,7 @@ public class Item {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Item(String itemName, int itemCount, String itemCategory, String memo, ShoppingList shoppingList) {
+    public Item(String itemName, int itemCount, Category itemCategory, String memo, ShoppingList shoppingList) {
         this.itemName = itemName;
         this.itemCategory = itemCategory;
         this.itemCount = itemCount;

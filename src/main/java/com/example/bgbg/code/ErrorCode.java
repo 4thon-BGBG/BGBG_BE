@@ -29,6 +29,7 @@ public enum ErrorCode {
      */
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 아이디를 가진 사용자가 존재하지 않습니다."),
     LIST_NOT_FOUND(HttpStatus.NOT_FOUND, "장보기 리스트를 찾을 수 없습니다."),
+    ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "품목을 찾을 수 없습니다."),
     /**
      * 406 NOT_ACCEPTABLE - 허용되지 않는 요청 형식
      */
@@ -45,6 +46,8 @@ public enum ErrorCode {
     LIST_CREATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "장보기 리스트 생성에 실패했습니다."),
     LIST_UPDATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "장보기 리스트 수정에 실패했습니다."),
     LIST_DELETE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "장보기 리스트 삭제에 실패했습니다."),
+    ITEM_CREATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "품목 생성에 실패했습니다."),
+    ITEM_GET_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "품목 조회에 실패했습니다."),
 
     /**
      * 502 BAD_GATEWAY - 이트웨이 또는 프록시 서버 오류
