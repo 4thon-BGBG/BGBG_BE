@@ -104,9 +104,21 @@ public class ItemServiceImpl implements ItemService{
             .build();
     }
 
+    @Override
     @Transactional
     public Boolean deleteItemById(Long id) {
+        log.info("품목 삭제 시도 : id={}", id);
 
+        Item item = itemRepository.findById(id)
+            .orElseThrow(() -> {
+                log.warn("품목이 존재하지 않음");
+                throw new GlobalException(ErrorCode.ITEM_GET_FAILED);
+            });
+
+        itemRepository.deleteById(id);
+
+        log.info("품목 삭제 완료 : id={}", id);
+        return true;
     }
 
 }

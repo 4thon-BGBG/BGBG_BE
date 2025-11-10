@@ -12,4 +12,5 @@ public interface ItemService {
     ItemCreatedResponse saveItem(ItemCreatedRequest request, User user);
     List<ItemGetResponse> getItemsByShoppingListId(Long shoppingListId);
     ItemGetResponse updateItemInfo(ItemSetRequest request, User user);
+    Boolean deleteItemById(Long id);
 }

@@ -61,4 +61,13 @@ public class ItemController {
             .status(ResponseCode.SUCCESS_UPDATE_ITEM.getStatus().value())
             .body(new ResponseDTO<>(ResponseCode.SUCCESS_UPDATE_ITEM, updatedItem));
     }
+
+    @Operation(summary = "품목 삭제", description = "품목 id로 품목 조회 후 품목 삭제")
+    @DeleteMapping("/item/{id}")
+    public ResponseEntity<?> deleteItem(@Parameter(description = "삭제할 품목 id")  @PathVariable Long id) {
+        Boolean result = itemService.deleteItemById(id);
+        return ResponseEntity
+            .status(ResponseCode.SUCCESS_DELETE_ITEM.getStatus().value())
+            .body(new ResponseDTO<>(ResponseCode.SUCCESS_DELETE_ITEM, result));
+    }
 }
