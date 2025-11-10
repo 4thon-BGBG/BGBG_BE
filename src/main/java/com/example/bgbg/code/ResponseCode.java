@@ -13,7 +13,15 @@ public enum ResponseCode {
     SUCCESS_REGISTER(HttpStatus.CREATED, "회원가입을 성공했습니다."),
     SUCCESS_LOGIN(HttpStatus.OK, "로그인을 성공했습니다."),
 
-    SUCCESS_GET_MYPAGE(HttpStatus.OK, "마이페이지를 성공적으로 불러왔습니다.");
+    SUCCESS_GET_MYPAGE(HttpStatus.OK, "마이페이지를 성공적으로 불러왔습니다."),
+
+    /**
+     * ShoppingList
+     */
+    SUCCESS_CREATE_LIST(HttpStatus.CREATED, "장보기 리스트 생성에 성공했습니다."),
+    SUCCESS_GET_ALL_LISTS(HttpStatus.OK, "장보기 리스트 전체 조회에 성공했습니다."),
+    SUCCESS_UPDATE_LIST(HttpStatus.OK, "장보기 리스트 수정에 성공했습니다."),
+    SUCCESS_DELETE_LIST(HttpStatus.OK, "장보기 리스트 삭제에 성공했습니다.");
 
 
 
