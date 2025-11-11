@@ -67,6 +67,35 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<ItemGetResponse> getItemsByShoppingListIdSortedByCategory(Long shoppingListId) {
+        try {
+            List<Item> items = itemRepository.findByShoppingListId(shoppingListId);
+
+            return items.stream()
+                .sorted((item1, item2) -> {
+                    // Category enum의 ordinal() 값으로 정렬 (선언 순서대로)
+                    return Integer.compare(
+                        item1.getItemCategory().ordinal(),
+                        item2.getItemCategory().ordinal()
+                    );
+                })
+                .map(item -> ItemGetResponse.builder()
+                    .listName(item.getShoppingList().getListName())
+                    .itemName(item.getItemName())
+                    .itemCount(item.getItemCount())
+                    .category(item.getItemCategory())
+                    .memo(item.getMemo())
+                    .build())
+                .toList();
+
+        } catch (Exception e) {
+            log.error("품목 카테고리별 정렬 조회 실패", e);
+            throw new GlobalException(ErrorCode.ITEM_GET_FAILED);
+        }
+    }
+
+    @Override
     @Transactional
     public ItemGetResponse updateItemInfo(ItemSetRequest request, User user) {
         ShoppingList shoppingList = shoppingListRepository.findById(request.getShoppingListId())
@@ -137,6 +166,28 @@ public class ItemServiceImpl implements ItemService{
             .category(updatedItem.getItemCategory())
             .memo(updatedItem.getMemo())
             .build();
+    }
+
+    @Override
+    @Transactional
+    public Boolean toggleOwnItem(Long itemId, User user) {
+        Item item = itemRepository.findById(itemId)
+            .orElseThrow(() -> {
+                log.warn("품목이 존재하지 않음");
+                throw new GlobalException(ErrorCode.ITEM_NOT_FOUND);
+            });
+
+        // 해당 품목이 해당 사용자의 품목인지 검증
+        if (!item.getUser().getId().equals(user.getId())) {
+            log.warn("해당 사용자의 품목이 아님");
+            throw new GlobalException(ErrorCode.UNAUTHORIZED_UESR);
+        }
+
+        item.toggleOwnItem();
+        itemRepository.save(item);
+
+        log.info("품목 보유 여부 토글 완료: itemId={}, ownItem={}", itemId, item.getOwnItem());
+        return item.getOwnItem();
     }
 
     @Override

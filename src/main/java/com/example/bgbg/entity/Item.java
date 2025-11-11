@@ -43,6 +43,9 @@ public class Item {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "own_item", columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean ownItem = false; // 보유 품목 여부(default = false)
+
     @CreatedDate
     private LocalDateTime createdAt;
 
@@ -65,7 +68,11 @@ public class Item {
         this.itemCategory = itemCategory;
     }
 
-    public void  updateItemMemo(String memo) {
+    public void updateItemMemo(String memo) {
         this.memo = memo;
+    }
+
+    public void toggleOwnItem() {
+        this.ownItem = !this.ownItem;
     }
 }

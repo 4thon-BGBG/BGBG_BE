@@ -53,6 +53,16 @@ public class ItemController {
             .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ITEMS, items));
     }
 
+    @Operation(summary = "리스트 별 품목 카테고리 정렬 조회", description = "특정 리스트에 추가된 품목을 카테고리 순서대로 정렬하여 조회")
+    @GetMapping("/item/{id}/sorted")
+    public ResponseEntity<?> getItemByShoppingListIdSortedByCategory(@Parameter(description = "조회 할 리스트 id")
+                                                       @PathVariable Long id) {
+        List<ItemGetResponse> items = itemService.getItemsByShoppingListIdSortedByCategory(id);
+        return ResponseEntity
+            .status(ResponseCode.SUCCESS_GET_ITEMS_SORTED_BY_CATEGORY.getStatus().value())
+            .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ITEMS_SORTED_BY_CATEGORY, items));
+    }
+
     @Operation(summary = "품목 정보 수정", description = "리스트 ID와 품목 ID로 특정 품목의 정보 수정 (memo 제외)")
     @PatchMapping("/item")
     public ResponseEntity<?> updateItemInfo(@RequestBody ItemSetRequest request) {
@@ -71,6 +81,16 @@ public class ItemController {
         return ResponseEntity
             .status(ResponseCode.SUCCESS_UPDATE_ITEM_MEMO.getStatus().value())
             .body(new ResponseDTO<>(ResponseCode.SUCCESS_UPDATE_ITEM_MEMO, updatedItem));
+    }
+
+    @Operation(summary = "품목 보유 여부 토글", description = "품목의 보유 여부를 토글합니다 (체크박스 기능)")
+    @PatchMapping("/item/{id}/toggle")
+    public ResponseEntity<?> toggleOwnItem(@Parameter(description = "토글할 품목 id") @PathVariable Long id) {
+        User user = getLoggedInUser();
+        Boolean ownItem = itemService.toggleOwnItem(id, user);
+        return ResponseEntity
+            .status(ResponseCode.SUCCESS_TOGGLE_OWN_ITEM.getStatus().value())
+            .body(new ResponseDTO<>(ResponseCode.SUCCESS_TOGGLE_OWN_ITEM, ownItem));
     }
 
     @Operation(summary = "품목 삭제", description = "품목 id로 품목 조회 후 품목 삭제")
