@@ -19,9 +19,11 @@ public enum ErrorCode {
      */
     PASSWORD_NOT_CORRECT(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다."),
     UNAUTHORIZED_UESR(HttpStatus.UNAUTHORIZED, "권한이 없습니다."),
+
     /**
      * 403 FORBIDDEN - 권한 없음
      */
+    ITEM_ACCESS_DENIED(HttpStatus.FORBIDDEN, "해당 품목에 접근할 권한이 없습니다."),
 
 
     /**
@@ -29,6 +31,7 @@ public enum ErrorCode {
      */
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 아이디를 가진 사용자가 존재하지 않습니다."),
     LIST_NOT_FOUND(HttpStatus.NOT_FOUND, "장보기 리스트를 찾을 수 없습니다."),
+    ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 품목이 존재하지 않습니다."),
     /**
      * 406 NOT_ACCEPTABLE - 허용되지 않는 요청 형식
      */
@@ -64,4 +67,6 @@ public enum ErrorCode {
                 .build()
                 ;
     }
+
+
 }

@@ -1,10 +1,9 @@
-package com.example.bgbg.dto.request;
+package com.example.bgbg.item.dto.request;
 
 public record ItemCreatedRequest(
     String itemName,
     int itemCount,
-    String itemCategory,
-    String memo
+    String itemCategory
 ) {
 
 }

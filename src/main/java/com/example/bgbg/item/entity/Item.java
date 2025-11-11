@@ -1,5 +1,6 @@
-package com.example.bgbg.entity;
+package com.example.bgbg.item.entity;
 
+import com.example.bgbg.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -22,13 +23,15 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String itemName;
 
     private int itemCount;
 
     private String itemCategory;
-
-    private String memo;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -37,10 +40,10 @@ public class Item {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Item(String itemName, int itemCount, String itemCategory, String memo) {
+    public Item(User user, String itemName, int itemCount, String itemCategory) {
+        this.user = user;
         this.itemName = itemName;
         this.itemCategory = itemCategory;
         this.itemCount = itemCount;
-        this.memo = memo;
     }
 }
