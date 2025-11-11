@@ -23,6 +23,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String itemName;
 
     private int itemCount;
@@ -36,7 +37,7 @@ public class Item {
     private String memo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shopping_list_id")
+    @JoinColumn(name = "shopping_list_id", nullable = true)
     private ShoppingList shoppingList;
 
     @ManyToOne(fetch = FetchType.LAZY)
