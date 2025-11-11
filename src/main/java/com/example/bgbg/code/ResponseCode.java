@@ -14,7 +14,7 @@ public enum ResponseCode {
     SUCCESS_LOGIN(HttpStatus.OK, "로그인을 성공했습니다."),
 
     SUCCESS_GET_MYPAGE(HttpStatus.OK, "마이페이지를 성공적으로 불러왔습니다."),
-    SUCCESS_UPDATE_USER(HttpStatus.OK, "유저 정보가 성공적으로 수정되었습니다.");
+    SUCCESS_UPDATE_USER(HttpStatus.OK, "유저 정보가 성공적으로 수정되었습니다."),
 
     /**
      * ShoppingList
