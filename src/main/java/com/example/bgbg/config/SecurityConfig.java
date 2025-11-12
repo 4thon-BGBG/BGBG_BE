@@ -39,7 +39,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("*")); // 모든 도메인 허용
+        configuration.setAllowedOriginPatterns(List.of("https://4thon-bgbg.vercel.app",
+                "https://egaeuni.shop","http://54.180.108.84","http://localhost:8080"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
