@@ -33,7 +33,18 @@ public enum ResponseCode {
     SUCCESS_UPDATE_ITEM(HttpStatus.OK, "품목 수정에 성공했습니다."),
     SUCCESS_DELETE_ITEM(HttpStatus.OK, "품목 삭제에 성공했습니다."),
     SUCCESS_UPDATE_ITEM_MEMO(HttpStatus.OK, "품목 메모 작성에 성공했습니다."),
-    SUCCESS_TOGGLE_OWN_ITEM(HttpStatus.OK, "품목 보유 여부 토글에 성공했습니다.");
+    SUCCESS_TOGGLE_OWN_ITEM(HttpStatus.OK, "품목 보유 여부 토글에 성공했습니다."),
+
+    /**
+     * Own
+     */
+    SUCCESS_CREATE_OWN(HttpStatus.CREATED, "보유품목 등록에 성공했습니다."),
+    SUCCESS_GET_ALL_OWNS(HttpStatus.OK, "보유품목 전체 조회에 성공했습니다."),
+    SUCCESS_GET_OWN(HttpStatus.OK, "보유품목 상세 조회에 성공했습니다."),
+    SUCCESS_GET_CATEGORY_OWN(HttpStatus.OK, "카테고리 별 보유품목 조회에 성공했습니다."),
+    SUCCESS_GET_DEPLETED_OWNS(HttpStatus.OK, "소진된 보유품목 조회에 성공했습니다."),
+    SUCCESS_UPDATE_OWN(HttpStatus.OK, "보유품목 수정에 성공했습니다."),
+    SUCCESS_DELETE_OWN(HttpStatus.OK, "보유품목 삭제에 성공했습니다.");
 
 
     private final HttpStatus status;
