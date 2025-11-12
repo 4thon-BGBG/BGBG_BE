@@ -2,6 +2,7 @@ package com.example.bgbg.shoppinglist.controller;
 
 import com.example.bgbg.code.ResponseCode;
 import com.example.bgbg.dto.response.ResponseDTO;
+import com.example.bgbg.entity.User;
 import com.example.bgbg.shoppinglist.dto.request.CreateListRequest;
 import com.example.bgbg.shoppinglist.dto.response.ListResponse;
 import com.example.bgbg.shoppinglist.service.ShoppingListService;
@@ -12,6 +13,8 @@ import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,10 +27,16 @@ import java.util.List;
 public class ShoppingListController {
   private final ShoppingListService shoppingListService;
 
+  private User getLoggedInUser() {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    return (User) auth.getPrincipal();
+  }
+
   @Operation(summary = "장보기 리스트 생성", description = "장보기 리스트 화면에서 새로운 리스트 생성")
   @PostMapping
   public ResponseEntity<?> createShoppingList(@RequestBody CreateListRequest request) {
-    ListResponse list = shoppingListService.createShoppingList(request);
+    User user = getLoggedInUser();
+    ListResponse list = shoppingListService.createShoppingList(request, user);
     return ResponseEntity
         .status(ResponseCode.SUCCESS_CREATE_LIST.getStatus().value())
         .body(new ResponseDTO<>(ResponseCode.SUCCESS_CREATE_LIST, list));

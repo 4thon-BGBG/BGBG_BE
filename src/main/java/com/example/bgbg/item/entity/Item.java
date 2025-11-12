@@ -1,6 +1,7 @@
 package com.example.bgbg.item.entity;
 
 import com.example.bgbg.entity.User;
+import com.example.bgbg.shoppinglist.entity.ShoppingList;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,15 +24,25 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     private String itemName;
 
     private int itemCount;
 
-    private String itemCategory;
+    // private String itemCategory;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category")
+    private Category itemCategory;
+
+    private String memo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shopping_list_id")
+    private ShoppingList shoppingList;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -40,10 +51,22 @@ public class Item {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Item(User user, String itemName, int itemCount, String itemCategory) {
-        this.user = user;
+    public Item(String itemName, int itemCount, Category itemCategory, String memo, ShoppingList shoppingList, User user) {
         this.itemName = itemName;
         this.itemCategory = itemCategory;
         this.itemCount = itemCount;
+        this.memo = memo;
+        this.shoppingList = shoppingList;
+        this.user = user;
+    }
+
+    public void updateItemInfo(String itemName, int itemCount, Category itemCategory) {
+        this.itemName = itemName;
+        this.itemCount = itemCount;
+        this.itemCategory = itemCategory;
+    }
+
+    public void  updateItemMemo(String memo) {
+        this.memo = memo;
     }
 }

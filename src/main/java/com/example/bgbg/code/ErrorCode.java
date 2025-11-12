@@ -48,6 +48,8 @@ public enum ErrorCode {
     LIST_CREATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "장보기 리스트 생성에 실패했습니다."),
     LIST_UPDATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "장보기 리스트 수정에 실패했습니다."),
     LIST_DELETE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "장보기 리스트 삭제에 실패했습니다."),
+    ITEM_CREATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "품목 생성에 실패했습니다."),
+    ITEM_GET_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "품목 조회에 실패했습니다."),
 
     /**
      * 502 BAD_GATEWAY - 이트웨이 또는 프록시 서버 오류
