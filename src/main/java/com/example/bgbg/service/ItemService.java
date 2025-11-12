@@ -12,7 +12,9 @@ import java.util.List;
 public interface ItemService {
     ItemCreatedResponse saveItem(ItemCreatedRequest request, User user);
     List<ItemGetResponse> getItemsByShoppingListId(Long shoppingListId);
+    List<ItemGetResponse> getItemsByShoppingListIdSortedByCategory(Long shoppingListId);
     ItemGetResponse updateItemInfo(ItemSetRequest request, User user);
     ItemGetResponse updateItemMemo(ItemMemoRequest request, User user);
+    Boolean toggleOwnItem(Long itemId, User user);
     Boolean deleteItemById(Long id);
 }

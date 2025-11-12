@@ -23,6 +23,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String itemName;
 
     private int itemCount;
@@ -36,12 +37,15 @@ public class Item {
     private String memo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shopping_list_id")
+    @JoinColumn(name = "shopping_list_id", nullable = true)
     private ShoppingList shoppingList;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "own_item", columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean ownItem = false; // 보유 품목 여부(default = false)
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -65,7 +69,11 @@ public class Item {
         this.itemCategory = itemCategory;
     }
 
-    public void  updateItemMemo(String memo) {
+    public void updateItemMemo(String memo) {
         this.memo = memo;
+    }
+
+    public void toggleOwnItem() {
+        this.ownItem = !this.ownItem;
     }
 }

@@ -39,6 +39,7 @@ public enum ErrorCode {
      * 409 CONFLICT - 요청 충돌
      */
     DUPLICATE_EMAIL(HttpStatus.CONFLICT, "이미 사용 중인 아이디입니다."),
+    DUPLICATE_ITEM_NAME(HttpStatus.CONFLICT, "이미 존재하는 품목 이름입니다."),
 
     /**
     * 500 INTERNAL_SERVER_ERROR - 서버 내부 오류

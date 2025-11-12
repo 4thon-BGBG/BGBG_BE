@@ -4,10 +4,7 @@ import com.example.bgbg.common.BaseTimeEntity;
 import com.example.bgbg.entity.Item;
 import com.example.bgbg.entity.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +24,7 @@ public class ShoppingList extends BaseTimeEntity {
   @Column(name = "listName")
   private String listName; // 리스트 이름
 
+  @Setter
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
   private User user;
@@ -37,10 +35,6 @@ public class ShoppingList extends BaseTimeEntity {
 
   public void updateName(String listName) {
     this.listName = listName;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
   }
 
 }
