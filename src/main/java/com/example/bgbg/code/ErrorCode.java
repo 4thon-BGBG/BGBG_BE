@@ -22,14 +22,16 @@ public enum ErrorCode {
     /**
      * 403 FORBIDDEN - 권한 없음
      */
-
+    OWN_ACCESS_DENIED(HttpStatus.FORBIDDEN, "해당 품목에 접근할 권한이 없습니다."),
 
     /**
      * 404 NOT_FOUND - 요청한 리소스를 찾을 수 없음
      */
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 아이디를 가진 사용자가 존재하지 않습니다."),
     LIST_NOT_FOUND(HttpStatus.NOT_FOUND, "장보기 리스트를 찾을 수 없습니다."),
-    ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "품목을 찾을 수 없습니다."),
+    ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 품목을 찾을 수 없습니다."),
+    OWN_NOT_FOUND(HttpStatus.NOT_FOUND, "보유 품목을 찾을 수 없습니다."),
+
     /**
      * 406 NOT_ACCEPTABLE - 허용되지 않는 요청 형식
      */
