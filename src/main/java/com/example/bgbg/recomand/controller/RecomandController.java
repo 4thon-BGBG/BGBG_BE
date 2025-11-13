@@ -2,6 +2,7 @@ package com.example.bgbg.recomand.controller;
 
 import com.example.bgbg.code.ResponseCode;
 import com.example.bgbg.dto.response.ResponseDTO;
+import com.example.bgbg.recomand.dto.response.IngredientResponse;
 import com.example.bgbg.recomand.service.GptService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,10 +28,10 @@ public class RecomandController {
     @GetMapping
     public ResponseEntity<?> getRecommendation(@Parameter(description = "추천받고 싶은 메뉴 이름")
                                                 @RequestParam String menu) {
-        String answer = gptService.getAnswer(menu);
+        List<IngredientResponse> ingredients = gptService.getIngredients(menu);
         return ResponseEntity
             .ok()
-            .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ITEMS, answer));
+            .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ITEMS, ingredients));
     }
 
 }
