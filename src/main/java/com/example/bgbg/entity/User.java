@@ -1,11 +1,12 @@
 package com.example.bgbg.entity;
 
-import com.example.bgbg.shoppinglist.entity.ShoppingList;
-import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.bgbg.shoppinglist.entity.ShoppingList;
+
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Getter
@@ -14,20 +15,20 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
-    private String username;  // 아이디
+    private String username; // 아이디
 
     @Column(nullable = false)
-    private String password;  // 비밀번호
+    private String password; // 비밀번호
 
-    @Transient
-    private String confirmPassword; // 비밀번호 확인
+    @Transient private String confirmPassword; // 비밀번호 확인
 
     @Column(nullable = false)
-    private String nickname;  // 닉네임
+    private String nickname; // 닉네임
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default

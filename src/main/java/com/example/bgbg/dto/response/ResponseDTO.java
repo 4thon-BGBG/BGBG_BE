@@ -1,6 +1,7 @@
 package com.example.bgbg.dto.response;
 
 import com.example.bgbg.code.ResponseCode;
+
 import lombok.Data;
 
 @Data
