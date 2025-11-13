@@ -51,6 +51,7 @@ public enum ErrorCode {
     LIST_DELETE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "장보기 리스트 삭제에 실패했습니다."),
     ITEM_CREATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "품목 생성에 실패했습니다."),
     ITEM_GET_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "품목 조회에 실패했습니다."),
+    OPENAI_API_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "OpenAI API 요청에 실패했습니다."),
 
     /**
      * 502 BAD_GATEWAY - 이트웨이 또는 프록시 서버 오류
