@@ -1,5 +1,6 @@
 package com.example.bgbg.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import com.example.bgbg.code.ErrorCode;
 import com.example.bgbg.dto.response.ErrorResponseDTO;
 import com.example.bgbg.dto.user.LoginRequestDTO;
+import com.example.bgbg.dto.user.MyHistoryDTO;
 import com.example.bgbg.dto.user.RegisterDTO;
 import com.example.bgbg.dto.user.UserUpdateDTO;
 import com.example.bgbg.entity.User;
-import com.example.bgbg.repository.user.UserRepository;
 import com.example.bgbg.service.user.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final UserRepository userRepository;
 
     private User getLoggedInUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -58,5 +58,15 @@ public class UserController {
     public ResponseEntity<?> updateUser(
             @RequestBody @Valid UserUpdateDTO dto, @AuthenticationPrincipal User loginUser) {
         return userService.updateUser(loginUser.getId(), dto);
+    }
+
+    @Operation(summary = "장보기 리스트", description = "장보기 리스트")
+    @GetMapping("/mypage/history")
+    public ResponseEntity<Page<MyHistoryDTO>> getMyHistory(
+            @AuthenticationPrincipal User user,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Page<MyHistoryDTO> history = userService.getMyHistory(user, page, size);
+        return ResponseEntity.ok(history);
     }
 }

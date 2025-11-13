@@ -2,6 +2,8 @@ package com.example.bgbg.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,4 +22,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     // 특정 장보기 리스트에 해당 품목 이름이 이미 존재하는지 확인
     boolean existsByShoppingListIdAndItemName(Long shoppingListId, String itemName);
+
+    // 장보기 내역
+    Page<Item> findByUserIdOrderByUpdatedAtDesc(Long userId, Pageable pageable);
+
 }
