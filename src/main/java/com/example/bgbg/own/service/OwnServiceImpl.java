@@ -3,6 +3,8 @@ package com.example.bgbg.own.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.bgbg.entity.Item;
+import com.example.bgbg.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OwnServiceImpl implements OwnService {
     private final OwnRepository ownRepository;
+    private final ItemRepository itemRepository;
 
     @Override
     @Transactional
@@ -103,5 +106,29 @@ public class OwnServiceImpl implements OwnService {
         }
 
         ownRepository.delete(own);
+    }
+
+    @Override
+    @Transactional
+    public void moveItemsToOwn(User user) {
+        List<Item> itemsToMove = itemRepository.findByUserAndOwnItemTrueAndToOwnFalse(user);
+
+        for (Item item : itemsToMove) {
+            Own existingOwn = ownRepository.findByUserAndOwnName(user, item.getItemName());
+
+            if (existingOwn != null) {
+                existingOwn.updateOwn(null, existingOwn.getOwnCount() + item.getItemCount(), null);
+            } else {
+                Own newOwn = Own.builder()
+                        .user(user)
+                        .ownName(item.getItemName())
+                        .ownCount(item.getItemCount())
+                        .ownCategory(item.getItemCategory())
+                        .build();
+                ownRepository.save(newOwn);
+            }
+
+            item.markToOwn();
+        }
     }
 }

@@ -48,6 +48,9 @@ public class Item {
     @Column(name = "own_item", columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean ownItem = false; // 보유 품목 여부(default = false)
 
+    @Column(name = "to_own", columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean toOwn = false; // 보유 품목으로 가져갔는지 여부
+
     @CreatedDate private LocalDateTime createdAt;
 
     @LastModifiedDate private LocalDateTime updatedAt;
@@ -81,4 +84,17 @@ public class Item {
     public void toggleOwnItem() {
         this.ownItem = !this.ownItem;
     }
+
+    public void markToOwn() {
+        this.toOwn = true;
+    }
+
+    public void unmarkToOwn() {
+        this.toOwn = false;
+    }
+
+    public void moveToOwnItem() {
+        this.toOwn = false;
+    }
+
 }

@@ -38,7 +38,8 @@ public enum ResponseCode {
     SUCCESS_GET_CATEGORY_OWN(HttpStatus.OK, "카테고리 별 보유품목 조회에 성공했습니다."),
     SUCCESS_GET_DEPLETED_OWNS(HttpStatus.OK, "소진된 보유품목 조회에 성공했습니다."),
     SUCCESS_UPDATE_OWN(HttpStatus.OK, "보유품목 수정에 성공했습니다."),
-    SUCCESS_DELETE_OWN(HttpStatus.OK, "보유품목 삭제에 성공했습니다.");
+    SUCCESS_DELETE_OWN(HttpStatus.OK, "보유품목 삭제에 성공했습니다."),
+    SUCCESS_MOVE_TO_OWN(HttpStatus.OK, "구매 품목이 보유 품목으로 이동했습니다.");
 
     private final HttpStatus status;
     private final String message;

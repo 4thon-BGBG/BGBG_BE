@@ -2,6 +2,7 @@ package com.example.bgbg.repository;
 
 import java.util.List;
 
+import com.example.bgbg.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +26,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     // 장보기 내역
     Page<Item> findByUserIdOrderByUpdatedAtDesc(Long userId, Pageable pageable);
+
+    // toOwn이 true인 아이템 조회
+    List<Item> findByUserAndOwnItemTrueAndToOwnFalse(User user);
 }

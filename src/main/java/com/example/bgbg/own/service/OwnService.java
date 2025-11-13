@@ -22,4 +22,6 @@ public interface OwnService {
     void updateOwn(User user, Long ownId, OwnUpdateRequest request);
 
     void deleteOwn(User user, Long ownId);
+
+    void moveItemsToOwn(User user);
 }
