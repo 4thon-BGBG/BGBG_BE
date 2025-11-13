@@ -47,6 +47,9 @@ public class Item {
     @Column(name = "own_item", columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean ownItem = false; // 보유 품목 여부(default = false)
 
+    @Column(name = "add_own", columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean addOwn = false; // 보유 품목 여부(default = false)
+
     @CreatedDate
     private LocalDateTime createdAt;
 
