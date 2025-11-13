@@ -24,6 +24,7 @@ jobs:
             
             # 1. 프로젝트 디렉토리로 이동
             cd /home/ubuntu/.ssh/BGBG_BE
+            source ~/.bashrc
             
             # 2. 최신 코드 pull
             git pull origin main
