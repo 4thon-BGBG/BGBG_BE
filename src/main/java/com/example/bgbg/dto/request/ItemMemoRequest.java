@@ -17,6 +17,4 @@ public class ItemMemoRequest {
 
     @Schema(description = "품목 메모 내용")
     private String memo;
-
-
 }
