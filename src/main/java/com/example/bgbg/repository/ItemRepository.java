@@ -25,4 +25,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     // 장보기 내역
     Page<Item> findByUserIdOrderByUpdatedAtDesc(Long userId, Pageable pageable);
+
+    List<Item> findByUserIdOrderByUpdatedAtDesc(Long userId);
 }
