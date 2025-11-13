@@ -46,10 +46,9 @@ public class ShoppingListController {
     @Operation(summary = "장보기 리스트 전체 조회", description = "Ai 추천 품목 리스트에 품목 추가 시 리스트 선택 창에서 사용")
     @GetMapping
     public ResponseEntity<?> getAllShoppingLists() {
-      List<ListResponse> lists = shoppingListService.getAllShoppingLists();
-      return ResponseEntity
-          .status(ResponseCode.SUCCESS_GET_ALL_LISTS.getStatus().value())
-          .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ALL_LISTS, lists));
+        List<ListResponse> lists = shoppingListService.getAllShoppingLists();
+        return ResponseEntity.status(ResponseCode.SUCCESS_GET_ALL_LISTS.getStatus().value())
+                .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ALL_LISTS, lists));
     }
 
     @Operation(summary = "장보기 리스트와 품목 전체 조회", description = "모든 장보기 리스트와 각 리스트에 담긴 품목들을 조회")

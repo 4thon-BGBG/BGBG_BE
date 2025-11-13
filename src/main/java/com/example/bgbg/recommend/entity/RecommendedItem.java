@@ -1,14 +1,16 @@
 package com.example.bgbg.recommend.entity;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import com.example.bgbg.common.BaseTimeEntity;
 import com.example.bgbg.entity.Category;
 import com.example.bgbg.entity.User;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter

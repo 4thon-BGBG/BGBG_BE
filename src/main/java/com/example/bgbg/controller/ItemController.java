@@ -8,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.bgbg.code.ResponseCode;
-import com.example.bgbg.dto.request.AiItemRequest;
 import com.example.bgbg.dto.request.ItemCreatedRequest;
 import com.example.bgbg.dto.request.ItemMemoRequest;
 import com.example.bgbg.dto.request.ItemSetRequest;

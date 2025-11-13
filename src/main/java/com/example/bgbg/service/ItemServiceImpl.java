@@ -61,13 +61,13 @@ public class ItemServiceImpl implements ItemService {
         ShoppingList shoppingList = null;
         if (request.shoppingListId() != null) {
             shoppingList =
-                shoppingListRepository
-                    .findById(request.shoppingListId())
-                    .orElseThrow(
-                        () -> {
-                            log.warn("리스트가 존재하지 않음");
-                            throw new GlobalException(ErrorCode.LIST_NOT_FOUND);
-                        });
+                    shoppingListRepository
+                            .findById(request.shoppingListId())
+                            .orElseThrow(
+                                    () -> {
+                                        log.warn("리스트가 존재하지 않음");
+                                        throw new GlobalException(ErrorCode.LIST_NOT_FOUND);
+                                    });
         }
 
         Item item = ItemMapper.toEntityFromAi(request, shoppingList, user);
@@ -75,7 +75,6 @@ public class ItemServiceImpl implements ItemService {
         Item savedItem = itemRepository.save(item);
 
         return new ItemCreatedResponse(savedItem.getId(), "item 등록 완료");
-
     }
 
     @Override

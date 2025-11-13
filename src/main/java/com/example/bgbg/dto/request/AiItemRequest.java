@@ -1,6 +1,7 @@
 package com.example.bgbg.dto.request;
 
 import com.example.bgbg.entity.Category;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(title = "AiItemRequest", description = "AI 추천 재료를 품목으로 추가하는 요청 DTO")

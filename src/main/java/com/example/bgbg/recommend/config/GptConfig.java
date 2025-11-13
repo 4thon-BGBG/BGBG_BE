@@ -1,12 +1,14 @@
 package com.example.bgbg.recommend.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.Getter;
 
 @Configuration
 @Getter

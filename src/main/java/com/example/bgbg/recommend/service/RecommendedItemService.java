@@ -1,22 +1,24 @@
 package com.example.bgbg.recommend.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.example.bgbg.code.ErrorCode;
+import com.example.bgbg.entity.Item;
 import com.example.bgbg.entity.User;
 import com.example.bgbg.exception.GlobalException;
 import com.example.bgbg.recommend.dto.response.IngredientResponse;
 import com.example.bgbg.recommend.entity.RecommendedItem;
 import com.example.bgbg.recommend.repository.RecommendedItemRepository;
 import com.example.bgbg.repository.ItemRepository;
-import com.example.bgbg.entity.Item;
 import com.example.bgbg.shoppinglist.entity.ShoppingList;
 import com.example.bgbg.shoppinglist.repository.ShoppingListRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,13 +41,16 @@ public class RecommendedItemService {
         List<IngredientResponse> ingredients = gptService.getIngredients(menu);
 
         // 추천 품목을 RecommendedItem 테이블에 저장
-        List<RecommendedItem> recommendedItems = ingredients.stream()
-                .map(ingredient -> RecommendedItem.builder()
-                        .itemName(ingredient.getName())
-                        .itemCategory(ingredient.getCategory())
-                        .user(user)
-                        .build())
-                .collect(Collectors.toList());
+        List<RecommendedItem> recommendedItems =
+                ingredients.stream()
+                        .map(
+                                ingredient ->
+                                        RecommendedItem.builder()
+                                                .itemName(ingredient.getName())
+                                                .itemCategory(ingredient.getCategory())
+                                                .user(user)
+                                                .build())
+                        .collect(Collectors.toList());
 
         recommendedItemRepository.saveAll(recommendedItems);
         log.info("새로운 추천 품목 저장 완료: userId={}, count={}", user.getId(), recommendedItems.size());
@@ -67,12 +72,14 @@ public class RecommendedItemService {
     @Transactional
     public void addAllToShoppingList(Long shoppingListId, User user) {
         // 장보기 리스트 조회
-        ShoppingList shoppingList = shoppingListRepository
-                .findById(shoppingListId)
-                .orElseThrow(() -> {
-                    log.warn("리스트가 존재하지 않음: listId={}", shoppingListId);
-                    throw new GlobalException(ErrorCode.LIST_NOT_FOUND);
-                });
+        ShoppingList shoppingList =
+                shoppingListRepository
+                        .findById(shoppingListId)
+                        .orElseThrow(
+                                () -> {
+                                    log.warn("리스트가 존재하지 않음: listId={}", shoppingListId);
+                                    throw new GlobalException(ErrorCode.LIST_NOT_FOUND);
+                                });
 
         // 추천 품목 조회
         List<RecommendedItem> recommendedItems = recommendedItemRepository.findByUser(user);
@@ -83,28 +90,39 @@ public class RecommendedItemService {
         }
 
         // 중복 제외하고 추천 품목을 Item으로 변환하여 저장
-        List<Item> items = recommendedItems.stream()
-                .filter(recommendedItem -> {
-                    boolean exists = itemRepository.existsByShoppingListIdAndItemName(
-                            shoppingListId, recommendedItem.getItemName());
-                    if (exists) {
-                        log.info("중복 품목 제외: listId={}, itemName={}",
-                                shoppingListId, recommendedItem.getItemName());
-                    }
-                    return !exists;
-                })
-                .map(recommendedItem -> Item.builder()
-                        .itemName(recommendedItem.getItemName())
-                        .itemCategory(recommendedItem.getItemCategory())
-                        .itemCount(1)
-                        .memo(null)
-                        .shoppingList(shoppingList)
-                        .user(user)
-                        .build())
-                .collect(Collectors.toList());
+        List<Item> items =
+                recommendedItems.stream()
+                        .filter(
+                                recommendedItem -> {
+                                    boolean exists =
+                                            itemRepository.existsByShoppingListIdAndItemName(
+                                                    shoppingListId, recommendedItem.getItemName());
+                                    if (exists) {
+                                        log.info(
+                                                "중복 품목 제외: listId={}, itemName={}",
+                                                shoppingListId,
+                                                recommendedItem.getItemName());
+                                    }
+                                    return !exists;
+                                })
+                        .map(
+                                recommendedItem ->
+                                        Item.builder()
+                                                .itemName(recommendedItem.getItemName())
+                                                .itemCategory(recommendedItem.getItemCategory())
+                                                .itemCount(1)
+                                                .memo(null)
+                                                .shoppingList(shoppingList)
+                                                .user(user)
+                                                .build())
+                        .collect(Collectors.toList());
 
         itemRepository.saveAll(items);
-        log.info("추천 품목 전체 장보기 리스트에 추가 완료: listId={}, userId={}, 추가된 개수={}, 전체 추천 개수={}",
-                shoppingListId, user.getId(), items.size(), recommendedItems.size());
+        log.info(
+                "추천 품목 전체 장보기 리스트에 추가 완료: listId={}, userId={}, 추가된 개수={}, 전체 추천 개수={}",
+                shoppingListId,
+                user.getId(),
+                items.size(),
+                recommendedItems.size());
     }
 }

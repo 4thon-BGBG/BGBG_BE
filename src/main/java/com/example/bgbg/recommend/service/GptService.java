@@ -1,15 +1,17 @@
 package com.example.bgbg.recommend.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.example.bgbg.entity.Category;
 import com.example.bgbg.recommend.OpenAiClient;
 import com.example.bgbg.recommend.dto.response.GptResponse;
 import com.example.bgbg.recommend.dto.response.IngredientResponse;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -68,5 +70,4 @@ public class GptService {
         log.info("최종 파싱된 재료 개수: {}", ingredients.size());
         return ingredients;
     }
-
 }

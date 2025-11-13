@@ -21,12 +21,12 @@ public class ItemMapper {
 
     public static Item toEntityFromAi(AiItemRequest request, ShoppingList shoppingList, User user) {
         return Item.builder()
-            .itemName(request.itemName())
-            .itemCategory(request.itemCategory())
-            .itemCount(1)
-            .memo(null)
-            .shoppingList(shoppingList)
-            .user(user)
-            .build();
+                .itemName(request.itemName())
+                .itemCategory(request.itemCategory())
+                .itemCount(1)
+                .memo(null)
+                .shoppingList(shoppingList)
+                .user(user)
+                .build();
     }
 }

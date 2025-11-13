@@ -17,5 +17,4 @@ public class ChatResponse {
     public static ChatResponse of(String answer) {
         return new ChatResponse(answer);
     }
-
 }
