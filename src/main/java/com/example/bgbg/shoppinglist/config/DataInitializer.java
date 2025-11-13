@@ -17,7 +17,7 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        if (!shoppingListRepository.existsById(1L)) {
+        if (shoppingListRepository.count() == 0) {
             ShoppingList defaultList = ShoppingList.builder().listName("장보기 리스트").build();
             shoppingListRepository.save(defaultList);
         }

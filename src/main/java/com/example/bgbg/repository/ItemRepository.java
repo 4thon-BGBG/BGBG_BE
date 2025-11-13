@@ -20,6 +20,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             "SELECT CASE WHEN i.shoppingList IS NOT NULL THEN true ELSE false END FROM Item i WHERE i.id = :itemId")
     boolean isItemInShoppingList(@Param("itemId") Long itemId);
 
+    // 특정 장보기 리스트에 해당 품목 이름이 이미 존재하는지 확인
+    boolean existsByShoppingListIdAndItemName(Long shoppingListId, String itemName);
+
     // 장보기 내역
     Page<Item> findByUserIdOrderByUpdatedAtDesc(Long userId, Pageable pageable);
 }

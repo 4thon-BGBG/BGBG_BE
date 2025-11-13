@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bgbg.code.ErrorCode;
+import com.example.bgbg.dto.request.AiItemRequest;
 import com.example.bgbg.dto.request.ItemCreatedRequest;
 import com.example.bgbg.dto.request.ItemMemoRequest;
 import com.example.bgbg.dto.request.ItemSetRequest;
@@ -33,12 +34,6 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public ItemCreatedResponse saveItem(ItemCreatedRequest request, User user) {
 
-        // 품목 이름 중복 체크
-        if (itemRepository.existsByItemName(request.itemName())) {
-            log.warn("중복된 품목 이름: {}", request.itemName());
-            throw new GlobalException(ErrorCode.DUPLICATE_ITEM_NAME);
-        }
-
         ShoppingList shoppingList = null;
 
         // shoppingListId가 제공된 경우에만 ShoppingList 조회
@@ -54,6 +49,28 @@ public class ItemServiceImpl implements ItemService {
         }
 
         Item item = ItemMapper.toEntity(request, shoppingList, user);
+
+        Item savedItem = itemRepository.save(item);
+
+        return new ItemCreatedResponse(savedItem.getId(), "item 등록 완료");
+    }
+
+    @Override
+    @Transactional
+    public ItemCreatedResponse saveItemFromAi(AiItemRequest request, User user) {
+        ShoppingList shoppingList = null;
+        if (request.shoppingListId() != null) {
+            shoppingList =
+                    shoppingListRepository
+                            .findById(request.shoppingListId())
+                            .orElseThrow(
+                                    () -> {
+                                        log.warn("리스트가 존재하지 않음");
+                                        throw new GlobalException(ErrorCode.LIST_NOT_FOUND);
+                                    });
+        }
+
+        Item item = ItemMapper.toEntityFromAi(request, shoppingList, user);
 
         Item savedItem = itemRepository.save(item);
 
