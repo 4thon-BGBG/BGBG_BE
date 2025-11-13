@@ -2,6 +2,8 @@ package com.example.bgbg.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +19,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query(
             "SELECT CASE WHEN i.shoppingList IS NOT NULL THEN true ELSE false END FROM Item i WHERE i.id = :itemId")
     boolean isItemInShoppingList(@Param("itemId") Long itemId);
+
+    // 장보기 내역
+    Page<Item> findByUserIdOrderByUpdatedAtDesc(Long userId, Pageable pageable);
 }
