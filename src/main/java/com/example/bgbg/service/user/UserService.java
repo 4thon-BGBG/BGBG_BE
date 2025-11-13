@@ -1,5 +1,7 @@
 package com.example.bgbg.service.user;
 
+import org.springframework.http.ResponseEntity;
+
 import com.example.bgbg.dto.user.LoginRequestDTO;
 import com.example.bgbg.dto.user.MyHistoryDTO;
 import com.example.bgbg.dto.user.RegisterDTO;
@@ -10,8 +12,11 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserService {
     ResponseEntity<?> register(RegisterDTO dto);
+
     ResponseEntity<?> login(LoginRequestDTO dto);
+
     ResponseEntity<?> mypage(User user);
+
     ResponseEntity<?> updateUser(Long loginUserId, UserUpdateDTO dto);
 
     Page<MyHistoryDTO> getMyHistory(User user, int page, int size);

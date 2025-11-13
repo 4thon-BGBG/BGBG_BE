@@ -1,8 +1,8 @@
 package com.example.bgbg.own.dto.response;
 
-import lombok.Builder;
-
 import java.time.LocalDateTime;
+
+import lombok.Builder;
 
 @Builder
 public record OwnDetailResponse(
@@ -11,6 +11,4 @@ public record OwnDetailResponse(
         String ownName,
         int ownCount,
         String ownCategory,
-        LocalDateTime updateAt
-) {
-}
+        LocalDateTime updateAt) {}

@@ -1,16 +1,18 @@
 package com.example.bgbg.entity;
 
+import java.time.LocalDateTime;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import com.example.bgbg.shoppinglist.entity.ShoppingList;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -47,14 +49,18 @@ public class Item {
     @Column(name = "own_item", columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean ownItem = false; // 보유 품목 여부(default = false)
 
-    @CreatedDate
-    private LocalDateTime createdAt;
+    @CreatedDate private LocalDateTime createdAt;
 
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
+    @LastModifiedDate private LocalDateTime updatedAt;
 
     @Builder
-    public Item(String itemName, int itemCount, Category itemCategory, String memo, ShoppingList shoppingList, User user) {
+    public Item(
+            String itemName,
+            int itemCount,
+            Category itemCategory,
+            String memo,
+            ShoppingList shoppingList,
+            User user) {
         this.itemName = itemName;
         this.itemCategory = itemCategory;
         this.itemCount = itemCount;
