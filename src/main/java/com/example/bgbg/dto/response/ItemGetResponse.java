@@ -10,8 +10,8 @@ import lombok.Getter;
 @Schema(title = "ItemGetResponse DTO", description = "특정 리스트 별 품목 조회 응답 반환")
 public class ItemGetResponse {
 
-  @Schema(description = "리스트 이름")
-  private String listName;
+  @Schema(description = "품목 id")
+  Long itemId;
 
   @Schema(description = "품목 이름")
   private String itemName;

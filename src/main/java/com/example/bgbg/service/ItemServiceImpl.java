@@ -63,7 +63,7 @@ public class ItemServiceImpl implements ItemService{
 
             return items.stream()
                 .map(item -> ItemGetResponse.builder()
-                    .listName(item.getShoppingList().getListName())
+                    .itemId(item.getId())
                     .itemName(item.getItemName())
                     .itemCount(item.getItemCount())
                     .category(item.getItemCategory())
@@ -92,7 +92,7 @@ public class ItemServiceImpl implements ItemService{
                     );
                 })
                 .map(item -> ItemGetResponse.builder()
-                    .listName(item.getShoppingList().getListName())
+                    .itemId(item.getId())
                     .itemName(item.getItemName())
                     .itemCount(item.getItemCount())
                     .category(item.getItemCategory())
@@ -134,6 +134,7 @@ public class ItemServiceImpl implements ItemService{
             Item updatedItem = itemRepository.save(item);
 
             return ItemGetResponse.builder()
+                .itemId(updatedItem.getId())
                 .itemName(updatedItem.getItemName())
                 .itemCount(updatedItem.getItemCount())
                 .category(updatedItem.getItemCategory())
@@ -169,7 +170,7 @@ public class ItemServiceImpl implements ItemService{
             Item updatedItem = itemRepository.save(item);
 
             return ItemGetResponse.builder()
-                .listName(shoppingList.getListName())
+                .itemId(updatedItem.getId())
                 .itemName(updatedItem.getItemName())
                 .itemCount(updatedItem.getItemCount())
                 .category(updatedItem.getItemCategory())
@@ -206,7 +207,7 @@ public class ItemServiceImpl implements ItemService{
         Item updatedItem = itemRepository.save(item);
 
         return ItemGetResponse.builder()
-            .listName(shoppingList.getListName())
+            .itemId(updatedItem.getId())
             .itemName(updatedItem.getItemName())
             .itemCount(updatedItem.getItemCount())
             .category(updatedItem.getItemCategory())

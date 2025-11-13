@@ -72,7 +72,6 @@ public class ShoppingListService {
           .map(shoppingList -> {
             List<com.example.bgbg.dto.response.ItemGetResponse> items = shoppingList.getItems().stream()
                 .map(item -> com.example.bgbg.dto.response.ItemGetResponse.builder()
-                    .listName(shoppingList.getListName())
                     .itemName(item.getItemName())
                     .itemCount(item.getItemCount())
                     .category(item.getItemCategory())
