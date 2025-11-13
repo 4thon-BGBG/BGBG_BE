@@ -1,5 +1,11 @@
 package com.example.bgbg.own.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.example.bgbg.code.ErrorCode;
 import com.example.bgbg.entity.Category;
 import com.example.bgbg.entity.User;
@@ -11,16 +17,12 @@ import com.example.bgbg.own.dto.response.OwnDetailResponse;
 import com.example.bgbg.own.entity.Own;
 import com.example.bgbg.own.mapper.OwnMapper;
 import com.example.bgbg.own.repository.OwnRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class OwnServiceImpl implements OwnService{
+public class OwnServiceImpl implements OwnService {
     private final OwnRepository ownRepository;
 
     @Override
@@ -37,8 +39,10 @@ public class OwnServiceImpl implements OwnService{
     @Override
     @Transactional(readOnly = true)
     public OwnDetailResponse getOwnById(User user, Long ownId) {
-        Own own = ownRepository.findById(ownId)
-                .orElseThrow(() -> new GlobalException(ErrorCode.OWN_NOT_FOUND));
+        Own own =
+                ownRepository
+                        .findById(ownId)
+                        .orElseThrow(() -> new GlobalException(ErrorCode.OWN_NOT_FOUND));
 
         if (!own.getUser().getId().equals(user.getId())) {
             throw new GlobalException(ErrorCode.OWN_ACCESS_DENIED);
@@ -51,9 +55,7 @@ public class OwnServiceImpl implements OwnService{
     public List<OwnDetailResponse> getAllOwns(User user) {
         List<Own> owns = ownRepository.findByUser(user);
 
-        return owns.stream()
-                .map(OwnMapper::toDetailResponse)
-                .collect(Collectors.toList());
+        return owns.stream().map(OwnMapper::toDetailResponse).collect(Collectors.toList());
     }
 
     @Override
@@ -62,26 +64,24 @@ public class OwnServiceImpl implements OwnService{
         Category categoryEnum = Category.valueOf(category.toUpperCase());
         List<Own> owns = ownRepository.findByUserAndOwnCategory(user, categoryEnum);
 
-        return owns.stream()
-                .map(OwnMapper::toDetailResponse)
-                .collect(Collectors.toList());
+        return owns.stream().map(OwnMapper::toDetailResponse).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public  List<OwnDetailResponse> getDepletedOwns(User user) {
+    public List<OwnDetailResponse> getDepletedOwns(User user) {
         List<Own> owns = ownRepository.findByUserAndOwnCount(user, 0);
 
-        return owns.stream()
-                .map(OwnMapper::toDetailResponse)
-                .collect(Collectors.toList());
+        return owns.stream().map(OwnMapper::toDetailResponse).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public void updateOwn(User user, Long ownId, OwnUpdateRequest request) {
-        Own own = ownRepository.findById(ownId)
-                .orElseThrow(() -> new GlobalException(ErrorCode.OWN_NOT_FOUND));
+        Own own =
+                ownRepository
+                        .findById(ownId)
+                        .orElseThrow(() -> new GlobalException(ErrorCode.OWN_NOT_FOUND));
 
         if (!own.getUser().getId().equals(user.getId())) {
             throw new GlobalException(ErrorCode.OWN_ACCESS_DENIED);
@@ -93,8 +93,10 @@ public class OwnServiceImpl implements OwnService{
     @Override
     @Transactional
     public void deleteOwn(User user, Long ownId) {
-        Own own = ownRepository.findById(ownId)
-                .orElseThrow(() -> new GlobalException(ErrorCode.OWN_NOT_FOUND));
+        Own own =
+                ownRepository
+                        .findById(ownId)
+                        .orElseThrow(() -> new GlobalException(ErrorCode.OWN_NOT_FOUND));
 
         if (!own.getUser().getId().equals(user.getId())) {
             throw new GlobalException(ErrorCode.OWN_ACCESS_DENIED);

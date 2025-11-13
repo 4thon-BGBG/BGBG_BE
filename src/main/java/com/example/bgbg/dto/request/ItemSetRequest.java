@@ -1,6 +1,7 @@
 package com.example.bgbg.dto.request;
 
 import com.example.bgbg.entity.Category;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,5 +25,4 @@ public class ItemSetRequest {
 
     @Schema(description = "품목 카테고리")
     private Category category;
-
 }

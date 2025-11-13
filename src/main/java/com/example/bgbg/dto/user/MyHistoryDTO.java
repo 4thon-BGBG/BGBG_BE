@@ -1,8 +1,8 @@
 package com.example.bgbg.dto.user;
 
-import lombok.*;
-
 import java.time.LocalDate;
+
+import lombok.*;
 
 @Getter
 @Setter

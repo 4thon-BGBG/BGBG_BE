@@ -1,10 +1,10 @@
 package com.example.bgbg.own.mapper;
 
-import com.example.bgbg.entity.Category;
 import com.example.bgbg.entity.User;
 import com.example.bgbg.own.dto.request.OwnCreatedRequest;
 import com.example.bgbg.own.dto.response.OwnDetailResponse;
 import com.example.bgbg.own.entity.Own;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +20,7 @@ public class OwnMapper {
     }
 
     public static OwnDetailResponse toDetailResponse(Own own) {
-        if(own == null) {
+        if (own == null) {
             throw new IllegalArgumentException("품목이 없습니다.");
         }
 
