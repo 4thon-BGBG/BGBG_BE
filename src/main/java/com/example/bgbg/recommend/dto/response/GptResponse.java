@@ -1,8 +1,7 @@
-package com.example.bgbg.recomand.dto.response;
+package com.example.bgbg.recommend.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.example.bgbg.recomand.dto.request;
+package com.example.bgbg.recommend.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

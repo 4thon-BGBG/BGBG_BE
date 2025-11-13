@@ -1,6 +1,6 @@
-package com.example.bgbg.recomand.dto.response;
+package com.example.bgbg.recommend.dto.response;
 
-import com.example.bgbg.recomand.dto.request.Message;
+import com.example.bgbg.recommend.dto.request.Message;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

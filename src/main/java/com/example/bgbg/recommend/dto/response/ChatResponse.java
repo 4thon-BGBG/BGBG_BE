@@ -1,4 +1,4 @@
-package com.example.bgbg.recomand.dto.response;
+package com.example.bgbg.recommend.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

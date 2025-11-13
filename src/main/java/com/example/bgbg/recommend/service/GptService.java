@@ -1,9 +1,9 @@
-package com.example.bgbg.recomand.service;
+package com.example.bgbg.recommend.service;
 
 import com.example.bgbg.entity.Category;
-import com.example.bgbg.recomand.OpenAiClient;
-import com.example.bgbg.recomand.dto.response.GptResponse;
-import com.example.bgbg.recomand.dto.response.IngredientResponse;
+import com.example.bgbg.recommend.OpenAiClient;
+import com.example.bgbg.recommend.dto.response.GptResponse;
+import com.example.bgbg.recommend.dto.response.IngredientResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,10 @@
-package com.example.bgbg.recomand;
+package com.example.bgbg.recommend;
 
 import com.example.bgbg.code.ErrorCode;
 import com.example.bgbg.exception.GlobalException;
-import com.example.bgbg.recomand.dto.request.GptRequest;
-import com.example.bgbg.recomand.dto.request.Message;
-import com.example.bgbg.recomand.dto.response.GptResponse;
+import com.example.bgbg.recommend.dto.request.GptRequest;
+import com.example.bgbg.recommend.dto.request.Message;
+import com.example.bgbg.recommend.dto.response.GptResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
