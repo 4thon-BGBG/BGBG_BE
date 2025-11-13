@@ -43,7 +43,7 @@ public class ItemController {
             .body(new ResponseDTO<>(ResponseCode.SUCCESS_CREATE_ITEM, item));
     }
 
-    @Operation(summary = "리스트 별 품목 조회", description = "특정 리스트에 추가된 품목 조회")
+    @Operation(summary = "리스트 별 품목 기본 정렬 조회", description = "특정 리스트에 품목이 생성되어 추가된 순으로 조회")
     @GetMapping("/item/{id}")
     public ResponseEntity<?> getItemByShoppingListId(@Parameter(description = "조회 할 리스트 id")
                                                        @PathVariable Long id) {
