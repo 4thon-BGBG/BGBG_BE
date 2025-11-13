@@ -1,9 +1,12 @@
 package com.example.bgbg.repository;
 
 import com.example.bgbg.entity.Item;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
 
 import java.util.List;
 
@@ -14,4 +17,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     // 품목id로 해당 품목이 리스트에 담겨있는지 체크 (shoppingList가 null이 아닌지 확인)
     @Query("SELECT CASE WHEN i.shoppingList IS NOT NULL THEN true ELSE false END FROM Item i WHERE i.id = :itemId")
     boolean isItemInShoppingList(@Param("itemId") Long itemId);
+
+    // 장보기 내역
+    Page<Item> findByUserIdOrderByUpdatedAtDesc(Long userId, Pageable pageable);
 }
