@@ -47,9 +47,14 @@ public class SecurityConfig {
                         "http://localhost:8080"));
         configuration.setAllowedMethods(
                 List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedOriginPatterns(List.of("https://4thon-bgbg.vercel.app",
-                "https://egaeuni.shop","http://54.180.108.84","http://localhost:8080"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH","DELETE", "OPTIONS"));
+        configuration.setAllowedOriginPatterns(
+                List.of(
+                        "https://4thon-bgbg.vercel.app",
+                        "https://egaeuni.shop",
+                        "http://54.180.108.84",
+                        "http://localhost:8080"));
+        configuration.setAllowedMethods(
+                List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedOriginPatterns(
                 List.of(
                         "https://4thon-bgbg.vercel.app",
