@@ -87,7 +87,8 @@ public class OpenAiClient {
             "system",
             "당신은 요리 재료 추천 전문가입니다. 사용자가 요리 메뉴를 입력하면, 그 메뉴를 만들기 위해 필요한 재료 목록을 제공해주세요. " +
             "각 재료는 다음 카테고리 중 어디에 속하는지 분류하여 답변해주세요: VEGETABLES_FRUITS, MEAT, SEAFOOD, EGGS_DAIRY, GRAINS_NUTS, SEASONINGS, FROZEN_FOOD, PROCESSED_FOOD, BEVERAGES_ALCOHOL, ETC. " +
-            "각 재료는 한줄로 간단명료하게 나열해 주세요: 계란: EGGS_DAIRY, 상추: VEGETABLES_FRUITS" +
+            "위에서 정의한 카테고리 이외의 카테고리로 절대 분류하지 말아주세요. 만약 적당한 카테고리가 없다면 ETC로 분류해주세요." +
+                "각 재료는 한줄로 간단명료하게 나열해 주세요: 계란: EGGS_DAIRY, 상추: VEGETABLES_FRUITS" +
             "선택사항인 재료들은 추천하지말고 필수 재료로만 추천해주세요." +
             "다른 코멘트 없이 위 응답 방식으로만 한줄로만 응답해주세요.");
 

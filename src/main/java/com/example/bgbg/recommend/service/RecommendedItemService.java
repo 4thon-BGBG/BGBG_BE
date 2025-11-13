@@ -82,8 +82,17 @@ public class RecommendedItemService {
             throw new GlobalException(ErrorCode.ITEM_NOT_FOUND);
         }
 
-        // 추천 품목을 Item으로 변환하여 저장
+        // 중복 제외하고 추천 품목을 Item으로 변환하여 저장
         List<Item> items = recommendedItems.stream()
+                .filter(recommendedItem -> {
+                    boolean exists = itemRepository.existsByShoppingListIdAndItemName(
+                            shoppingListId, recommendedItem.getItemName());
+                    if (exists) {
+                        log.info("중복 품목 제외: listId={}, itemName={}",
+                                shoppingListId, recommendedItem.getItemName());
+                    }
+                    return !exists;
+                })
                 .map(recommendedItem -> Item.builder()
                         .itemName(recommendedItem.getItemName())
                         .itemCategory(recommendedItem.getItemCategory())
@@ -95,7 +104,7 @@ public class RecommendedItemService {
                 .collect(Collectors.toList());
 
         itemRepository.saveAll(items);
-        log.info("추천 품목 전체 장보기 리스트에 추가 완료: listId={}, userId={}, count={}",
-                shoppingListId, user.getId(), items.size());
+        log.info("추천 품목 전체 장보기 리스트에 추가 완료: listId={}, userId={}, 추가된 개수={}, 전체 추천 개수={}",
+                shoppingListId, user.getId(), items.size(), recommendedItems.size());
     }
 }
