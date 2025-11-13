@@ -33,12 +33,6 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public ItemCreatedResponse saveItem(ItemCreatedRequest request, User user) {
 
-        // 품목 이름 중복 체크
-        if (itemRepository.existsByItemName(request.itemName())) {
-            log.warn("중복된 품목 이름: {}", request.itemName());
-            throw new GlobalException(ErrorCode.DUPLICATE_ITEM_NAME);
-        }
-
         ShoppingList shoppingList = null;
 
         // shoppingListId가 제공된 경우에만 ShoppingList 조회
