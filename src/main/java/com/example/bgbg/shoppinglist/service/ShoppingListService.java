@@ -9,6 +9,7 @@ import com.example.bgbg.code.ErrorCode;
 import com.example.bgbg.entity.User;
 import com.example.bgbg.exception.GlobalException;
 import com.example.bgbg.shoppinglist.dto.request.CreateListRequest;
+import com.example.bgbg.shoppinglist.dto.response.ListItemResponse;
 import com.example.bgbg.shoppinglist.dto.response.ListResponse;
 import com.example.bgbg.shoppinglist.entity.ShoppingList;
 import com.example.bgbg.shoppinglist.mapper.ShoppingListMapper;
@@ -56,6 +57,49 @@ public class ShoppingListService {
 
         } catch (Exception e) {
             log.error("장보기 리스트 전체 조회 실패", e);
+            throw new GlobalException(ErrorCode.LIST_NOT_FOUND);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<ListItemResponse> getAllListItems() {
+        try {
+            List<ShoppingList> shoppingLists = shoppingListRepository.findAll();
+            log.info("장보기 리스트와 품목 전체 조회 완료");
+
+            return shoppingLists.stream()
+                    .map(
+                            shoppingList -> {
+                                List<com.example.bgbg.dto.response.ItemGetResponse> items =
+                                        shoppingList.getItems().stream()
+                                                .map(
+                                                        item ->
+                                                                com.example.bgbg.dto.response
+                                                                        .ItemGetResponse.builder()
+                                                                        .listName(
+                                                                                shoppingList
+                                                                                        .getListName())
+                                                                        .itemName(
+                                                                                item.getItemName())
+                                                                        .itemCount(
+                                                                                item.getItemCount())
+                                                                        .category(
+                                                                                item
+                                                                                        .getItemCategory())
+                                                                        .memo(item.getMemo())
+                                                                        .build())
+                                                .toList();
+
+                                return ListItemResponse.builder()
+                                        .listId(shoppingList.getId())
+                                        .listName(shoppingList.getListName())
+                                        .items(items)
+                                        .build();
+                            })
+                    .toList();
+
+        } catch (Exception e) {
+            log.error("장보기 리스트와 품목 전체 조회 실패", e);
             throw new GlobalException(ErrorCode.LIST_NOT_FOUND);
         }
     }

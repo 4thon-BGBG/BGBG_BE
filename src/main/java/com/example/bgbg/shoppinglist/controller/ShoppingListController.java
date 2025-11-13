@@ -11,6 +11,7 @@ import com.example.bgbg.code.ResponseCode;
 import com.example.bgbg.dto.response.ResponseDTO;
 import com.example.bgbg.entity.User;
 import com.example.bgbg.shoppinglist.dto.request.CreateListRequest;
+import com.example.bgbg.shoppinglist.dto.response.ListItemResponse;
 import com.example.bgbg.shoppinglist.dto.response.ListResponse;
 import com.example.bgbg.shoppinglist.service.ShoppingListService;
 
@@ -42,12 +43,21 @@ public class ShoppingListController {
                 .body(new ResponseDTO<>(ResponseCode.SUCCESS_CREATE_LIST, list));
     }
 
-    @Operation(summary = "장보기 리스트 전체 조회", description = "장보기 리스트 화면에서 리스트의 전체 목록을 조회")
+    /*@Operation(summary = "장보기 리스트 전체 조회", description = "장보기 리스트 화면에서 리스트의 전체 목록을 조회")
     @GetMapping
     public ResponseEntity<?> getAllShoppingLists() {
-        List<ListResponse> lists = shoppingListService.getAllShoppingLists();
-        return ResponseEntity.status(ResponseCode.SUCCESS_GET_ALL_LISTS.getStatus().value())
-                .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ALL_LISTS, lists));
+      List<ListResponse> lists = shoppingListService.getAllShoppingLists();
+      return ResponseEntity
+          .status(ResponseCode.SUCCESS_GET_ALL_LISTS.getStatus().value())
+          .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ALL_LISTS, lists));
+    }*/
+
+    @Operation(summary = "장보기 리스트와 품목 전체 조회", description = "모든 장보기 리스트와 각 리스트에 담긴 품목들을 조회")
+    @GetMapping("/items")
+    public ResponseEntity<?> getAllListItems() {
+        List<ListItemResponse> listItems = shoppingListService.getAllListItems();
+        return ResponseEntity.status(ResponseCode.SUCCESS_GET_ALL_LIST_ITEMS.getStatus().value())
+                .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ALL_LIST_ITEMS, listItems));
     }
 
     @Operation(summary = "장보기 리스트 삭제", description = "리스트 id로 리스트 조회 후 리스트 삭제")

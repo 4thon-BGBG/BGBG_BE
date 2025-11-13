@@ -8,6 +8,8 @@ import com.example.bgbg.dto.user.MyHistoryDTO;
 import com.example.bgbg.dto.user.RegisterDTO;
 import com.example.bgbg.dto.user.UserUpdateDTO;
 import com.example.bgbg.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 
 public interface UserService {
     ResponseEntity<?> register(RegisterDTO dto);
@@ -19,4 +21,5 @@ public interface UserService {
     ResponseEntity<?> updateUser(Long loginUserId, UserUpdateDTO dto);
 
     Page<MyHistoryDTO> getMyHistory(User user, int page, int size);
+
 }
