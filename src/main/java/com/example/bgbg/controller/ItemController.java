@@ -43,6 +43,15 @@ public class ItemController {
                 .body(new ResponseDTO<>(ResponseCode.SUCCESS_CREATE_ITEM, item));
     }
 
+    /*@Operation(summary = "AI 추천 재료 품목 추가", description = "AI 추천 재료를 리스트의 새로운 품목으로 추가 (개수=1, 메모=null 고정)")
+    @PostMapping("/item/ai")
+    public ResponseEntity<?> createItemFromAi(@RequestBody AiItemRequest request) {
+        User user = getLoggedInUser();
+        ItemCreatedResponse item = itemService.saveItemFromAi(request, user);
+        return ResponseEntity.status(ResponseCode.SUCCESS_CREATE_ITEM.getStatus().value())
+            .body(new ResponseDTO<>(ResponseCode.SUCCESS_CREATE_ITEM, item));
+    }*/
+
     @Operation(summary = "리스트 별 품목 기본 정렬 조회", description = "특정 리스트에 품목이 생성되어 추가된 순으로 조회")
     @GetMapping("/item/{id}")
     public ResponseEntity<?> getItemByShoppingListId(
@@ -80,7 +89,7 @@ public class ItemController {
                 .body(new ResponseDTO<>(ResponseCode.SUCCESS_UPDATE_ITEM_MEMO, updatedItem));
     }
 
-    @Operation(summary = "품목 보유 여부 토글", description = "품목의 보유 여부를 토글합니다 (체크박스 기능)")
+    @Operation(summary = "품목 보유 여부 토글", description = "품목의 보유 여부를 토글 (체크박스 기능)")
     @PatchMapping("/item/{id}/toggle")
     public ResponseEntity<?> toggleOwnItem(
             @Parameter(description = "토글할 품목 id") @PathVariable Long id) {
