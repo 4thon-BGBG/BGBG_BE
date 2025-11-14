@@ -1,11 +1,14 @@
 package com.example.bgbg.recommend.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.example.bgbg.entity.Category;
+import com.example.bgbg.own.dto.response.OwnDetailResponse;
 import com.example.bgbg.recommend.OpenAiClient;
 import com.example.bgbg.recommend.dto.response.GptResponse;
 import com.example.bgbg.recommend.dto.response.IngredientResponse;
@@ -69,5 +72,51 @@ public class GptService {
 
         log.info("최종 파싱된 재료 개수: {}", ingredients.size());
         return ingredients;
+    }
+
+    // 보유 품목 기반 메뉴 추천
+    public List<String> getMenuRecommendations(List<OwnDetailResponse> ownItems) {
+        // OwnDetailResponse 리스트를 문자열로 변환
+        String ownItemsText = buildOwnItemsPrompt(ownItems);
+
+        log.info("보유 품목 프롬프트: {}", ownItemsText);
+
+        // OpenAI API 호출
+        GptResponse response = openAiClient.getMenuRecommendation(ownItemsText);
+
+        // 응답에서 content 추출
+        String content = response.getChoices().get(0).getMessage().getContent();
+
+        log.info("메뉴 추천 응답: {}", content);
+
+        // 응답을 파싱해서 메뉴 리스트로 변환
+        return parseMenus(content);
+    }
+
+    // OwnDetailResponse 리스트를 프롬프트 문자열로 변환
+    private String buildOwnItemsPrompt(List<OwnDetailResponse> ownItems) {
+        if (ownItems == null || ownItems.isEmpty()) {
+            return "현재 보유 중인 재료가 없습니다. 일반적인 가정식 메뉴 3가지를 추천해주세요.";
+        }
+
+        String itemsList =
+                ownItems.stream()
+                        .map(own -> String.format("%s %d개", own.ownName(), own.ownCount()))
+                        .collect(Collectors.joining(", "));
+
+        return String.format("현재 보유 중인 재료: %s. 이 재료들로 만들 수 있는 메뉴를 추천해주세요.", itemsList);
+    }
+
+    // GPT 응답 텍스트를 파싱해서 메뉴 리스트로 변환
+    private List<String> parseMenus(String content) {
+        // 쉼표로 분리
+        List<String> menus =
+                Arrays.stream(content.split(","))
+                        .map(String::trim)
+                        .filter(menu -> !menu.isEmpty())
+                        .collect(Collectors.toList());
+
+        log.info("파싱된 메뉴 개수: {}", menus.size());
+        return menus;
     }
 }
