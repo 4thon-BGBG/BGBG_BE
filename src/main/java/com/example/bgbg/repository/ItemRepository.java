@@ -2,7 +2,6 @@ package com.example.bgbg.repository;
 
 import java.util.List;
 
-import com.example.bgbg.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.bgbg.entity.Item;
+import com.example.bgbg.entity.User;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByShoppingListId(Long shoppingListId); // 리스트id로 품목 조회 메서드
