@@ -54,7 +54,7 @@ jobs:
             source .env
             
             # 6. 백그라운드에서 새로운 JAR 실행 (nohup)
-            echo "Starting new JAR: $JAR_PATH"
+            echo "Starting new JAR: $NEW_JAR_PATH"
             nohup java -jar "$NEW_JAR_PATH" \
               --spring.profiles.active=prod \
               > app.log 2>&1 &
