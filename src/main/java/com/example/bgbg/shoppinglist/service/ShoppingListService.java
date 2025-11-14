@@ -2,11 +2,11 @@ package com.example.bgbg.shoppinglist.service;
 
 import java.util.List;
 
-import com.example.bgbg.dto.response.ItemGetResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bgbg.code.ErrorCode;
+import com.example.bgbg.dto.response.ItemGetResponse;
 import com.example.bgbg.entity.User;
 import com.example.bgbg.exception.GlobalException;
 import com.example.bgbg.shoppinglist.dto.request.CreateListRequest;
