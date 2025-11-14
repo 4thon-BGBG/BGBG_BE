@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bgbg.code.ErrorCode;
+import com.example.bgbg.dto.response.ItemGetResponse;
 import com.example.bgbg.entity.User;
 import com.example.bgbg.exception.GlobalException;
 import com.example.bgbg.shoppinglist.dto.request.CreateListRequest;
@@ -62,20 +63,19 @@ public class ShoppingListService {
     }
 
     @Transactional(readOnly = true)
-    public List<ListItemResponse> getAllListItems() {
+    public List<ListItemResponse> getAllListItems(User user) {
         try {
-            List<ShoppingList> shoppingLists = shoppingListRepository.findAll();
-            log.info("장보기 리스트와 품목 전체 조회 완료");
+            List<ShoppingList> shoppingLists = shoppingListRepository.findByUser(user);
+            log.info("사용자별 장보기 리스트와 품목 전체 조회 완료: userId={}", user.getId());
 
             return shoppingLists.stream()
                     .map(
                             shoppingList -> {
-                                List<com.example.bgbg.dto.response.ItemGetResponse> items =
+                                List<ItemGetResponse> items =
                                         shoppingList.getItems().stream()
                                                 .map(
                                                         item ->
-                                                                com.example.bgbg.dto.response
-                                                                        .ItemGetResponse.builder()
+                                                                ItemGetResponse.builder()
                                                                         .listName(
                                                                                 shoppingList
                                                                                         .getListName())

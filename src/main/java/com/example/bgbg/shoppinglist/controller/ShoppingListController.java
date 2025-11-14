@@ -51,10 +51,13 @@ public class ShoppingListController {
                 .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ALL_LISTS, lists));
     }
 
-    @Operation(summary = "장보기 리스트와 품목 전체 조회", description = "모든 장보기 리스트와 각 리스트에 담긴 품목들을 조회")
+    @Operation(
+            summary = "장보기 리스트와 품목 전체 조회",
+            description = "로그인한 사용자의 모든 장보기 리스트와 각 리스트에 담긴 품목들을 조회")
     @GetMapping("/items")
     public ResponseEntity<?> getAllListItems() {
-        List<ListItemResponse> listItems = shoppingListService.getAllListItems();
+        User user = getLoggedInUser();
+        List<ListItemResponse> listItems = shoppingListService.getAllListItems(user);
         return ResponseEntity.status(ResponseCode.SUCCESS_GET_ALL_LIST_ITEMS.getStatus().value())
                 .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ALL_LIST_ITEMS, listItems));
     }
