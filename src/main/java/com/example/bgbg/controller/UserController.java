@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.bgbg.code.ErrorCode;
 import com.example.bgbg.dto.response.ErrorResponseDTO;
-import com.example.bgbg.dto.user.LoginRequestDTO;
-import com.example.bgbg.dto.user.MyHistoryDTO;
-import com.example.bgbg.dto.user.RegisterDTO;
-import com.example.bgbg.dto.user.UserUpdateDTO;
+import com.example.bgbg.dto.user.*;
 import com.example.bgbg.entity.User;
+import com.example.bgbg.service.ShoppingAnalysisService;
 import com.example.bgbg.service.user.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final ShoppingAnalysisService shoppingAnalysisService;
 
     private User getLoggedInUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -68,5 +67,11 @@ public class UserController {
             @RequestParam(defaultValue = "10") int size) {
         Page<MyHistoryDTO> history = userService.getMyHistory(user, page, size);
         return ResponseEntity.ok(history);
+    }
+
+    @Operation(summary = "장보기 분석 레포트", description = "장보기 분석 레포트")
+    @GetMapping("mypage/report")
+    public ResponseEntity<ShoppingAnalysisReportDTO> getReport(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(shoppingAnalysisService.analyze(user));
     }
 }
