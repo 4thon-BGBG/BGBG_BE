@@ -14,6 +14,9 @@ public class ItemGetResponse {
     @Schema(description = "리스트 이름")
     private String listName;
 
+    @Schema(description = "품목 ID")
+    private Long itemId;
+
     @Schema(description = "품목 이름")
     private String itemName;
 

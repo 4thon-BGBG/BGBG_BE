@@ -95,4 +95,13 @@ public class OwnController {
         return ResponseEntity.status(ResponseCode.SUCCESS_DELETE_OWN.getStatus().value())
                 .body(new ResponseDTO<>(ResponseCode.SUCCESS_DELETE_OWN, null));
     }
+
+    @Operation(summary = "장바구니 품목을 보유 품목으로 이동", description = "toOwn이 true인 품목을 보유 품목으로 이동")
+    @PostMapping("/move-from-items")
+    public ResponseEntity<?> moveItemsToOwn(@AuthenticationPrincipal User loginUser) {
+        ownService.moveItemsToOwn(loginUser);
+
+        return ResponseEntity.status(ResponseCode.SUCCESS_MOVE_TO_OWN.getStatus().value())
+                .body(new ResponseDTO<>(ResponseCode.SUCCESS_MOVE_TO_OWN, null));
+    }
 }

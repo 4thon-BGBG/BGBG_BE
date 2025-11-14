@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bgbg.code.ErrorCode;
 import com.example.bgbg.entity.Category;
+import com.example.bgbg.entity.Item;
 import com.example.bgbg.entity.User;
 import com.example.bgbg.exception.GlobalException;
 import com.example.bgbg.own.dto.request.OwnCreatedRequest;
@@ -17,6 +18,7 @@ import com.example.bgbg.own.dto.response.OwnDetailResponse;
 import com.example.bgbg.own.entity.Own;
 import com.example.bgbg.own.mapper.OwnMapper;
 import com.example.bgbg.own.repository.OwnRepository;
+import com.example.bgbg.repository.ItemRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OwnServiceImpl implements OwnService {
     private final OwnRepository ownRepository;
+    private final ItemRepository itemRepository;
 
     @Override
     @Transactional
@@ -103,5 +106,30 @@ public class OwnServiceImpl implements OwnService {
         }
 
         ownRepository.delete(own);
+    }
+
+    @Override
+    @Transactional
+    public void moveItemsToOwn(User user) {
+        List<Item> itemsToMove = itemRepository.findByUserAndOwnItemTrueAndToOwnFalse(user);
+
+        for (Item item : itemsToMove) {
+            Own existingOwn = ownRepository.findByUserAndOwnName(user, item.getItemName());
+
+            if (existingOwn != null) {
+                existingOwn.updateOwn(null, existingOwn.getOwnCount() + item.getItemCount(), null);
+            } else {
+                Own newOwn =
+                        Own.builder()
+                                .user(user)
+                                .ownName(item.getItemName())
+                                .ownCount(item.getItemCount())
+                                .ownCategory(item.getItemCategory())
+                                .build();
+                ownRepository.save(newOwn);
+            }
+
+            item.markToOwn();
+        }
     }
 }
