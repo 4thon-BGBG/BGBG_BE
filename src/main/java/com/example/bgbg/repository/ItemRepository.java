@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.bgbg.entity.Item;
+import com.example.bgbg.entity.User;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByShoppingListId(Long shoppingListId); // 리스트id로 품목 조회 메서드
@@ -25,4 +26,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     // 장보기 내역
     Page<Item> findByUserIdOrderByUpdatedAtDesc(Long userId, Pageable pageable);
+
+    List<Item> findByUserIdOrderByUpdatedAtDesc(Long userId);
+
+    // toOwn이 true인 아이템 조회
+    List<Item> findByUserAndOwnItemTrueAndToOwnFalse(User user);
 }

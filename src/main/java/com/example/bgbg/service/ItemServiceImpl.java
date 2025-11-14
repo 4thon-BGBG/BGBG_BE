@@ -88,6 +88,7 @@ public class ItemServiceImpl implements ItemService {
                             item ->
                                     ItemGetResponse.builder()
                                             .listName(item.getShoppingList().getListName())
+                                            .itemId(item.getId())
                                             .itemName(item.getItemName())
                                             .itemCount(item.getItemCount())
                                             .category(item.getItemCategory())
