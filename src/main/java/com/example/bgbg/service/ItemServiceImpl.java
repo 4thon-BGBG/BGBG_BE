@@ -92,7 +92,7 @@ public class ItemServiceImpl implements ItemService {
                                             .itemName(item.getItemName())
                                             .itemCount(item.getItemCount())
                                             .category(item.getItemCategory())
-                                        .ownItem(item.getOwnItem())
+                                            .ownItem(item.getOwnItem())
                                             .memo(item.getMemo())
                                             .build())
                     .toList();
