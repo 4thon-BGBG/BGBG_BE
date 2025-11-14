@@ -24,23 +24,38 @@ jobs:
             
             # 1. 프로젝트 디렉토리로 이동
             cd /home/ubuntu/.ssh/BGBG_BE
-            source ~/.bashrc
             
-            # 2. 최신 코드 pull
+            # 2. .env 파일 생성
+            echo Create .env file
+            cat > .env <<'EOF_ENV'
+            ${{ secrets.ENV_FILE }}
+            EOF_ENV
+
+            # 3. 기존 코드 pull
             git pull origin main
-            
-            # 3. 이전 프로세스 종료 
-            JAR_NAME=$(ls build/libs/*.jar | head -n 1)
-            echo "Stopping old process..."
-            pkill -f $JAR_NAME || true
             
             # 4. 실행 권한 부여 및 빌드
             chmod +x gradlew
             ./gradlew clean bootjar -x test --no-daemon
+
+            # 5. 새로 생성된 Jar 파일
+            NEW_JAR_PATH=$(ls -t build/libs/*.jar | head -n 1)
+
+            # 이전 프로세스 PID 존재 시 kill
+            CURRENT_PID=$(sudo lsof -t -i :8080 || true)
+            if [ ! -z "$CURRENT_PID" ]; then
+              kill -9 $CURRENT_PID
+              sleep 5
+            else
+              echo "No process found on port 8080."
+            fi
+
+            # 환경변수 로드
+            source .env
             
-            # 5. 백그라운드에서 새로운 JAR 실행 (nohup)
-            echo "Starting new JAR: $JAR_NAME"
-            nohup java -jar $JAR_NAME \
+            # 6. 백그라운드에서 새로운 JAR 실행 (nohup)
+            echo "Starting new JAR: $JAR_PATH"
+            nohup java -jar "$NEW_JAR_PATH" \
               --spring.profiles.active=prod \
               > app.log 2>&1 &
               
