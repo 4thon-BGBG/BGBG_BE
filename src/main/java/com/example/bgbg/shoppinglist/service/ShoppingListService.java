@@ -79,6 +79,7 @@ public class ShoppingListService {
                                                                         .listName(
                                                                                 shoppingList
                                                                                         .getListName())
+                                                                        .itemId(item.getId())
                                                                         .itemName(
                                                                                 item.getItemName())
                                                                         .itemCount(

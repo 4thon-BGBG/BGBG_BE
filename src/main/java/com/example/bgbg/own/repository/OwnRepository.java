@@ -14,4 +14,6 @@ public interface OwnRepository extends JpaRepository<Own, Long> {
     List<Own> findByUserAndOwnCategory(User user, Category ownCategory);
 
     List<Own> findByUserAndOwnCount(User user, int ownCount);
+
+    Own findByUserAndOwnName(User user, String ownName);
 }
