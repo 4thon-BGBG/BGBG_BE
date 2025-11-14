@@ -99,9 +99,10 @@ public class GptService {
             return "현재 보유 중인 재료가 없습니다. 일반적인 가정식 메뉴 3가지를 추천해주세요.";
         }
 
-        String itemsList = ownItems.stream()
-                .map(own -> String.format("%s %d개", own.ownName(), own.ownCount()))
-                .collect(Collectors.joining(", "));
+        String itemsList =
+                ownItems.stream()
+                        .map(own -> String.format("%s %d개", own.ownName(), own.ownCount()))
+                        .collect(Collectors.joining(", "));
 
         return String.format("현재 보유 중인 재료: %s. 이 재료들로 만들 수 있는 메뉴를 추천해주세요.", itemsList);
     }
@@ -109,10 +110,11 @@ public class GptService {
     // GPT 응답 텍스트를 파싱해서 메뉴 리스트로 변환
     private List<String> parseMenus(String content) {
         // 쉼표로 분리
-        List<String> menus = Arrays.stream(content.split(","))
-                .map(String::trim)
-                .filter(menu -> !menu.isEmpty())
-                .collect(Collectors.toList());
+        List<String> menus =
+                Arrays.stream(content.split(","))
+                        .map(String::trim)
+                        .filter(menu -> !menu.isEmpty())
+                        .collect(Collectors.toList());
 
         log.info("파싱된 메뉴 개수: {}", menus.size());
         return menus;

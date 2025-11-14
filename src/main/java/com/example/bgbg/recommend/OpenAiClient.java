@@ -109,12 +109,11 @@ public class OpenAiClient {
         // system 메세지 작성 : AI 역할 지시
         Message systemMessage =
                 new Message(
-                    "system",
-                    "당신은 메뉴 추천 전문가입니다. 사용자가 보유 중인 품목을 보고 그 재료들로 만들 수 있는 메뉴를 추천해주세요. "
-                    + "메뉴는 무조건 3개를 추천해주세요. 만약 보유 중인 재료가 부족하다면 가지고 있는 재료 한에서 만들 수 있는 메뉴를 추천해주세요. "
-                        + "마땅히 만들만한 메뉴가 없다고 판단되면 가지고 있는 재료로 자취생이 하기 쉬운 요리 위주로 3개 추천해주세요. "
-                    + "다른 코멘트 없이 메뉴 3개만 쉼표로 구분하여 한줄로만 응답해주세요. 예시: 김치찌개, 된장찌개, 계란볶음밥"
-                );
+                        "system",
+                        "당신은 메뉴 추천 전문가입니다. 사용자가 보유 중인 품목을 보고 그 재료들로 만들 수 있는 메뉴를 추천해주세요. "
+                                + "메뉴는 무조건 3개를 추천해주세요. 만약 보유 중인 재료가 부족하다면 가지고 있는 재료 한에서 만들 수 있는 메뉴를 추천해주세요. "
+                                + "마땅히 만들만한 메뉴가 없다고 판단되면 가지고 있는 재료로 자취생이 하기 쉬운 요리 위주로 3개 추천해주세요. "
+                                + "다른 코멘트 없이 메뉴 3개만 쉼표로 구분하여 한줄로만 응답해주세요. 예시: 김치찌개, 된장찌개, 계란볶음밥");
 
         // user 메세지 작성 : 사용자 보유 품목 정보
         Message userMessage = new Message("user", prompt);
@@ -132,7 +131,8 @@ public class OpenAiClient {
         GptRequest request = recommendMenu(prompt);
 
         // 디버깅: 요청 내용 로그
-        log.info("메뉴 추천 요청 - model: {}, messages size: {}",
+        log.info(
+                "메뉴 추천 요청 - model: {}, messages size: {}",
                 request.getModel(),
                 request.getMessages().size());
 

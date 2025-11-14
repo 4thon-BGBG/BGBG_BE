@@ -69,9 +69,7 @@ public class RecommendController {
                 .body(new ResponseDTO<>(ResponseCode.SUCCESS_CREATE_ITEM, "추천 품목이 리스트에 추가되었습니다."));
     }
 
-    @Operation(
-            summary = "보유 품목 기반 메뉴 추천",
-            description = "사용자의 보유 품목을 기반으로 AI가 만들 수 있는 메뉴 3개를 추천")
+    @Operation(summary = "보유 품목 기반 메뉴 추천", description = "사용자의 보유 품목을 기반으로 AI가 만들 수 있는 메뉴 3개를 추천")
     @GetMapping("/menu")
     public ResponseEntity<?> getMenuRecommendations() {
         User user = getLoggedInUser();
@@ -82,7 +80,6 @@ public class RecommendController {
         // AI를 통한 메뉴 추천
         List<String> menus = gptService.getMenuRecommendations(ownItems);
 
-        return ResponseEntity.ok()
-                .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ITEMS, menus));
+        return ResponseEntity.ok().body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ITEMS, menus));
     }
 }
