@@ -80,7 +80,7 @@ public class OpenAiClient {
         return response.getBody();
     }
 
-    // OPENAI 요청 구성
+    // OPENAI 요청 구성 : 메뉴 기반 재료 추천
     private GptRequest getGptRequest(String prompt) {
 
         // system 메세지 작성 : AI 역할 지시
@@ -102,5 +102,59 @@ public class OpenAiClient {
 
         // 모델 이름과 메세지를 포함한 요청 객체 생성
         return new GptRequest(model, messages);
+    }
+
+    // OPENAI 요청 구성 : 보유 품목 기반 메뉴 추천
+    private GptRequest recommendMenu(String prompt) {
+        // system 메세지 작성 : AI 역할 지시
+        Message systemMessage =
+                new Message(
+                        "system",
+                        "당신은 메뉴 추천 전문가입니다. 사용자가 보유 중인 품목을 보고 그 재료들로 만들 수 있는 메뉴를 추천해주세요. "
+                                + "메뉴는 무조건 3개를 추천해주세요. 만약 보유 중인 재료가 부족하다면 가지고 있는 재료 한에서 만들 수 있는 메뉴를 추천해주세요. "
+                                + "마땅히 만들만한 메뉴가 없다고 판단되면 가지고 있는 재료로 자취생이 하기 쉬운 요리 위주로 3개 추천해주세요. "
+                                + "다른 코멘트 없이 메뉴 3개만 쉼표로 구분하여 한줄로만 응답해주세요. 예시: 김치찌개, 된장찌개, 계란볶음밥");
+
+        // user 메세지 작성 : 사용자 보유 품목 정보
+        Message userMessage = new Message("user", prompt);
+
+        // 메세지 리스트에 system -> user 순으로 담기
+        List<Message> messages = List.of(systemMessage, userMessage);
+
+        // 모델 이름과 메세지를 포함한 요청 객체 생성
+        return new GptRequest(model, messages);
+    }
+
+    // 보유 품목 기반 메뉴 추천 요청
+    public GptResponse getMenuRecommendation(String prompt) {
+        // 요청 구성
+        GptRequest request = recommendMenu(prompt);
+
+        // 디버깅: 요청 내용 로그
+        log.info(
+                "메뉴 추천 요청 - model: {}, messages size: {}",
+                request.getModel(),
+                request.getMessages().size());
+
+        // HttpHeaders 명시적 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + secretKey);
+
+        // HttpEntity로 요청 래핑
+        HttpEntity<GptRequest> entity = new HttpEntity<>(request, headers);
+
+        // RestTemplate을 통해 OpenAI API POST 요청 전송
+        ResponseEntity<GptResponse> response =
+                restTemplate.postForEntity(url, entity, GptResponse.class);
+
+        // 응답 실패 처리
+        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
+            log.error("OpenAI API 메뉴 추천 요청 실패");
+            throw new GlobalException(ErrorCode.OPENAI_API_FAILED);
+        }
+
+        // 성공 시 응답 본문 반환
+        return response.getBody();
     }
 }
