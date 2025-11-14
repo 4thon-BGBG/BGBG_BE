@@ -26,6 +26,9 @@ public class ItemGetResponse {
     @Schema(description = "품목 카테고리")
     private Category category;
 
+    @Schema(description = "보유 품목 여부")
+    private Boolean ownItem;
+
     @Schema(description = "품목 메모")
     private String memo;
 }
