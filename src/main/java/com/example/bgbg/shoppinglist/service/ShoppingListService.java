@@ -87,6 +87,7 @@ public class ShoppingListService {
                                                                         .category(
                                                                                 item
                                                                                         .getItemCategory())
+                                                                    .ownItem(item.getOwnItem())
                                                                         .memo(item.getMemo())
                                                                         .build())
                                                 .toList();
