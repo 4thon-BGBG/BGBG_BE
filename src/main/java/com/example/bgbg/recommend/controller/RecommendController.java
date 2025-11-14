@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import com.example.bgbg.code.ResponseCode;
 import com.example.bgbg.dto.response.ResponseDTO;
 import com.example.bgbg.entity.User;
+import com.example.bgbg.own.dto.response.OwnDetailResponse;
+import com.example.bgbg.own.service.OwnService;
 import com.example.bgbg.recommend.dto.response.IngredientResponse;
+import com.example.bgbg.recommend.service.GptService;
 import com.example.bgbg.recommend.service.RecommendedItemService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 public class RecommendController {
 
     private final RecommendedItemService recommendedItemService;
+    private final OwnService ownService;
+    private final GptService gptService;
 
     private User getLoggedInUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -62,5 +67,22 @@ public class RecommendController {
         recommendedItemService.addAllToShoppingList(shoppingListId, user);
         return ResponseEntity.ok()
                 .body(new ResponseDTO<>(ResponseCode.SUCCESS_CREATE_ITEM, "추천 품목이 리스트에 추가되었습니다."));
+    }
+
+    @Operation(
+            summary = "보유 품목 기반 메뉴 추천",
+            description = "사용자의 보유 품목을 기반으로 AI가 만들 수 있는 메뉴 3개를 추천")
+    @GetMapping("/menu")
+    public ResponseEntity<?> getMenuRecommendations() {
+        User user = getLoggedInUser();
+
+        // 사용자의 보유 품목 조회
+        List<OwnDetailResponse> ownItems = ownService.getAllOwns(user);
+
+        // AI를 통한 메뉴 추천
+        List<String> menus = gptService.getMenuRecommendations(ownItems);
+
+        return ResponseEntity.ok()
+                .body(new ResponseDTO<>(ResponseCode.SUCCESS_GET_ITEMS, menus));
     }
 }
