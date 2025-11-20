@@ -1,7 +1,7 @@
 package com.example.bgbg.exception;
 
 import com.example.bgbg.code.ErrorCode;
-import com.example.bgbg.dto.response.ErrorResponseDTO;
+import com.example.bgbg.common.dto.ErrorResponseDTO;
 
 public class GlobalException extends RuntimeException {
     private ErrorCode code;

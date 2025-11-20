@@ -6,15 +6,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bgbg.code.ErrorCode;
-import com.example.bgbg.dto.response.ItemGetResponse;
-import com.example.bgbg.entity.User;
 import com.example.bgbg.exception.GlobalException;
+import com.example.bgbg.item.dto.ItemGetResponse;
 import com.example.bgbg.shoppinglist.dto.request.CreateListRequest;
 import com.example.bgbg.shoppinglist.dto.response.ListItemResponse;
 import com.example.bgbg.shoppinglist.dto.response.ListResponse;
 import com.example.bgbg.shoppinglist.entity.ShoppingList;
 import com.example.bgbg.shoppinglist.mapper.ShoppingListMapper;
 import com.example.bgbg.shoppinglist.repository.ShoppingListRepository;
+import com.example.bgbg.user.entity.User;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.bgbg.common.BaseTimeEntity;
-import com.example.bgbg.entity.Item;
-import com.example.bgbg.entity.User;
+import com.example.bgbg.item.entity.Item;
+import com.example.bgbg.user.entity.User;
 
 import jakarta.persistence.*;
 import lombok.*;

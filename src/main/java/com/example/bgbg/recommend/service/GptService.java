@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.example.bgbg.entity.Category;
+import com.example.bgbg.common.entity.Category;
 import com.example.bgbg.own.dto.response.OwnDetailResponse;
 import com.example.bgbg.recommend.OpenAiClient;
 import com.example.bgbg.recommend.dto.response.GptResponse;

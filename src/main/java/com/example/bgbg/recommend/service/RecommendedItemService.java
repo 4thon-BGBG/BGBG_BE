@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bgbg.code.ErrorCode;
-import com.example.bgbg.entity.Item;
-import com.example.bgbg.entity.User;
 import com.example.bgbg.exception.GlobalException;
+import com.example.bgbg.item.entity.Item;
+import com.example.bgbg.item.repository.ItemRepository;
 import com.example.bgbg.recommend.dto.response.IngredientResponse;
 import com.example.bgbg.recommend.entity.RecommendedItem;
 import com.example.bgbg.recommend.repository.RecommendedItemRepository;
-import com.example.bgbg.repository.ItemRepository;
 import com.example.bgbg.shoppinglist.entity.ShoppingList;
 import com.example.bgbg.shoppinglist.repository.ShoppingListRepository;
+import com.example.bgbg.user.entity.User;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

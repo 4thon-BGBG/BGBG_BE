@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.bgbg.code.ErrorCode;
-import com.example.bgbg.entity.User;
 import com.example.bgbg.exception.GlobalException;
-import com.example.bgbg.repository.user.UserRepository;
+import com.example.bgbg.user.entity.User;
+import com.example.bgbg.user.repository.UserRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

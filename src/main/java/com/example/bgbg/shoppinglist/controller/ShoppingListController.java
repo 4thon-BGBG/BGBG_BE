@@ -8,12 +8,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.bgbg.code.ResponseCode;
-import com.example.bgbg.dto.response.ResponseDTO;
-import com.example.bgbg.entity.User;
+import com.example.bgbg.common.dto.ResponseDTO;
 import com.example.bgbg.shoppinglist.dto.request.CreateListRequest;
 import com.example.bgbg.shoppinglist.dto.response.ListItemResponse;
 import com.example.bgbg.shoppinglist.dto.response.ListResponse;
 import com.example.bgbg.shoppinglist.service.ShoppingListService;
+import com.example.bgbg.user.entity.User;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

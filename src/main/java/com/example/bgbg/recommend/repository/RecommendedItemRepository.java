@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.bgbg.entity.User;
 import com.example.bgbg.recommend.entity.RecommendedItem;
+import com.example.bgbg.user.entity.User;
 
 @Repository
 public interface RecommendedItemRepository extends JpaRepository<RecommendedItem, Long> {

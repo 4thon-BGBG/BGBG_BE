@@ -1,5 +1,5 @@
 package com.example.bgbg.own.dto.request;
 
-import com.example.bgbg.entity.Category;
+import com.example.bgbg.common.entity.Category;
 
 public record OwnUpdateRequest(String ownName, Integer ownCount, Category ownCategory) {}

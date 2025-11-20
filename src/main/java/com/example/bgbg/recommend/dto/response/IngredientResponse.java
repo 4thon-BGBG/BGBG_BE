@@ -1,6 +1,6 @@
 package com.example.bgbg.recommend.dto.response;
 
-import com.example.bgbg.entity.Category;
+import com.example.bgbg.common.entity.Category;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

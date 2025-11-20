@@ -1,9 +1,9 @@
 package com.example.bgbg.own.mapper;
 
-import com.example.bgbg.entity.User;
 import com.example.bgbg.own.dto.request.OwnCreatedRequest;
 import com.example.bgbg.own.dto.response.OwnDetailResponse;
 import com.example.bgbg.own.entity.Own;
+import com.example.bgbg.user.entity.User;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

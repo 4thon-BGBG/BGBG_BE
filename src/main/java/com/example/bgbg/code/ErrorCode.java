@@ -2,7 +2,7 @@ package com.example.bgbg.code;
 
 import org.springframework.http.HttpStatus;
 
-import com.example.bgbg.dto.response.ErrorResponseDTO;
+import com.example.bgbg.common.dto.ErrorResponseDTO;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bgbg.code.ErrorCode;
-import com.example.bgbg.entity.Category;
-import com.example.bgbg.entity.Item;
-import com.example.bgbg.entity.User;
+import com.example.bgbg.common.entity.Category;
 import com.example.bgbg.exception.GlobalException;
+import com.example.bgbg.item.entity.Item;
+import com.example.bgbg.item.repository.ItemRepository;
 import com.example.bgbg.own.dto.request.OwnCreatedRequest;
 import com.example.bgbg.own.dto.request.OwnUpdateRequest;
 import com.example.bgbg.own.dto.response.OwnCreatedResponse;
@@ -18,7 +18,7 @@ import com.example.bgbg.own.dto.response.OwnDetailResponse;
 import com.example.bgbg.own.entity.Own;
 import com.example.bgbg.own.mapper.OwnMapper;
 import com.example.bgbg.own.repository.OwnRepository;
-import com.example.bgbg.repository.ItemRepository;
+import com.example.bgbg.user.entity.User;
 
 import lombok.RequiredArgsConstructor;
 

@@ -2,7 +2,7 @@ package com.example.bgbg.shoppinglist.dto.response;
 
 import java.util.List;
 
-import com.example.bgbg.dto.response.ItemGetResponse;
+import com.example.bgbg.item.dto.ItemGetResponse;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

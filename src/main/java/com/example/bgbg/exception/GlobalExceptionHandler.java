@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.bgbg.code.ErrorCode;
-import com.example.bgbg.dto.response.ErrorResponseDTO;
+import com.example.bgbg.common.dto.ErrorResponseDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;

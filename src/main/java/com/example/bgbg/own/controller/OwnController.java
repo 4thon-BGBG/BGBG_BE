@@ -7,13 +7,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.bgbg.code.ResponseCode;
-import com.example.bgbg.dto.response.ResponseDTO;
-import com.example.bgbg.entity.User;
+import com.example.bgbg.common.dto.ResponseDTO;
 import com.example.bgbg.own.dto.request.OwnCreatedRequest;
 import com.example.bgbg.own.dto.request.OwnUpdateRequest;
 import com.example.bgbg.own.dto.response.OwnCreatedResponse;
 import com.example.bgbg.own.dto.response.OwnDetailResponse;
 import com.example.bgbg.own.service.OwnService;
+import com.example.bgbg.user.entity.User;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

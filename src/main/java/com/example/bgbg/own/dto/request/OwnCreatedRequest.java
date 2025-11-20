@@ -1,6 +1,6 @@
 package com.example.bgbg.own.dto.request;
 
-import com.example.bgbg.entity.Category;
+import com.example.bgbg.common.entity.Category;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

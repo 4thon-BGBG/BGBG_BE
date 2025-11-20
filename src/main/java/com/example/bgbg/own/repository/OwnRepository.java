@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.bgbg.entity.Category;
-import com.example.bgbg.entity.User;
+import com.example.bgbg.common.entity.Category;
 import com.example.bgbg.own.entity.Own;
+import com.example.bgbg.user.entity.User;
 
 public interface OwnRepository extends JpaRepository<Own, Long> {
     List<Own> findByUser(User user);

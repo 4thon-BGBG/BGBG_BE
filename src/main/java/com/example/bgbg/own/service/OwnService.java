@@ -2,11 +2,11 @@ package com.example.bgbg.own.service;
 
 import java.util.List;
 
-import com.example.bgbg.entity.User;
 import com.example.bgbg.own.dto.request.OwnCreatedRequest;
 import com.example.bgbg.own.dto.request.OwnUpdateRequest;
 import com.example.bgbg.own.dto.response.OwnCreatedResponse;
 import com.example.bgbg.own.dto.response.OwnDetailResponse;
+import com.example.bgbg.user.entity.User;
 
 public interface OwnService {
     OwnCreatedResponse saveOwn(User user, OwnCreatedRequest request);

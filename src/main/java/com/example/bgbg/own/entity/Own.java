@@ -6,8 +6,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.example.bgbg.entity.Category;
-import com.example.bgbg.entity.User;
+import com.example.bgbg.common.entity.Category;
+import com.example.bgbg.user.entity.User;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
